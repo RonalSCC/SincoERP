@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html class="h-100">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sinco School</title>
+
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Frameworks/DataTables/datatables.min.css" />
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/ff232a0db0.js" crossorigin="anonymous"></script>
+    <script src="~/Frameworks/DataTables/datatables.min.js"></script>
+
+    <style>
+        @@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --colorBase: #014172;
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #Body {
+            position: relative;
+        }
+
+            #Body::before {
+                content: '';
+                position: absolute;
+                height: 88%;
+                width: 100%;
+                background: url('../../Images/ClaseBackground.png');
+                background-size: cover;
+                background-position: center;
+                /*opacity: 0.1;*/
+                bottom: 0px;
+                z-index: -1;
+            }
+
+        #Header {
+            height: 12%;
+            position: relative;
+            box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
+            background: linear-gradient(145deg, white, var(--colorBase),var(--colorBase));
+        }
+
+
+        #Content {
+            height: 88%;
+        }
+
+        .imgLogo {
+            transform: scale(.6);
+        }
+
+        .ContainerOptionMenu {
+            margin-right: 3%;
+            display: flex;
+        }
+
+            .ContainerOptionMenu a {
+                color: white !important;
+                font-weight: 500;
+                transition: ease .1s all;
+                cursor: pointer;
+            }
+
+                .ContainerOptionMenu a:hover {
+                    /*color: var(--colorBase) !important;*/
+                    transform: scale(1.05);
+                }
+
+            .ContainerOptionMenu i {
+                /*padding-right: 2%;*/
+            }
+    </style>
+</head>
+<body id="Body" class="h-100">
+    <div class="container-fluid h-100 p-0">
+        <div id="Header" class="col-sm-12 d-flex">
+            <div class="col-sm-3 d-flex justify-content-center align-items-center">
+                <img src="~/Images/Logo2.png" class="img-fluid imgLogo" />
+            </div>
+            <div class="col-sm-9 d-flex align-items-center ">
+                <div class="col-sm-12 d-flex justify-content-end">
+                    <div class="col-sm-auto ContainerOptionMenu">
+                        <a> <i class="fa-solid fa-rocket"></i> Profesores</a>
+                    </div>
+                    <div class="col-sm-auto ContainerOptionMenu">
+                        <a> <i class="fa-solid fa-rocket"></i> Estudiantes</a>
+                    </div> 
+                    <div class="col-sm-auto ContainerOptionMenu">
+                        <a> <i class="fa-solid fa-rocket"></i> Asignaturas</a>
+                    </div>
+                    <div class="col-sm-auto ContainerOptionMenu">
+                        <a> <i class="fa-solid fa-rocket"></i> Reportes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Content" class="col-sm-12">
+            @RenderBody()
+        </div>
+    </div>
+
+
+</body>
+</html>

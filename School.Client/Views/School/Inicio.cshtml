@@ -1,0 +1,185 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<style>
+    .ContainerContent {
+        background: linear-gradient(90deg, white, white, white, rgba(255,255,255,.7));
+        border-radius: 8px;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+    }
+
+    .txtBienvenida {
+        color: var(--colorBase);
+        text-align: center;
+        text-shadow: 1px 1px 1px rgba(255,255,255,.3);
+    }
+
+    .subTxtBienvenida {
+        color: white;
+        text-align: center;
+        text-shadow: 1px 1px 1px rgb(0 0 0 / 90%);
+    }
+
+    .IconSchool {
+        font-size: 5rem;
+        color: var(--colorBase);
+    }
+
+    .CirclesOptions {
+        height: 12rem;
+        width: 12rem;
+        background:white;
+        border-radius:100%;
+        box-shadow:0px 0px 5px rgba(0,0,0,.3);
+        border: 1px solid rgba(0,0,0,0.3);
+        margin-right: 7%;
+        transition: ease .5s all;
+        cursor:pointer;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+        .CirclesOptions:hover {
+            transform: scale(1.2);
+        }
+
+            .CirclesOptions:hover .txtCircles {
+                visibility:visible;
+            }
+
+    .Teacher {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+            .Teacher::before {
+                content: '';
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                background: url('../../Images/Teacher.jpg');
+                background-size: cover;
+                background-position: center;
+                z-index: -1;
+            }
+
+    .Student {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+        .Student::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: url('../../Images/Student.jpg');
+            background-size: cover;
+            background-position: center top;
+            z-index: -1;
+        }
+
+    .Materia {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+        .Materia::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: url('../../Images/Materias.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index:-1;
+        }
+
+    .Reportes {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+        .Reportes::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: url('../../Images/Reportes.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+    .txtCircles {
+        visibility:hidden;
+        color: white;
+        font-weight:bold;
+        text-shadow: 1px 1px 1px rgba(0,0,0,.8);
+        transition: ease .2s all;
+    }
+
+    .txtAdminSections {
+        color:white;
+        text-shadow: 0px 0px 4px rgba(0,0,0,.8);
+    }
+</style>
+
+<div class="col-sm-12 h-100 p-5">
+    <div class="col-sm-12 flex-wrap h-100 d-flex align-items-center">
+        <div class="col-sm-12">
+            @* ------------------------------------------------------------------------------------ *@
+            @* ------------------------------- Mensaje Bienvenida --------------------------------- *@
+            @* ------------------------------------------------------------------------------------ *@
+            <div class="col-sm-12 d-flex flex-wrap align-items-center justify-content-center">
+                <div class="col-sm-12 d-flex justify-content-center mb-4">
+                    <i class="IconSchool fas fa-book"></i>
+                </div>
+                <div class="col-sm-12">
+                    <h1 class="txtBienvenida">Bienvenido Visitante</h1>
+                </div>
+
+                <div class="col-sm-12 mb-4">
+                    <p class="subTxtBienvenida">Somos la mejor escuela a nivel bogotá, por favor elige la opción que desees </p>
+                </div>
+            </div>
+
+            @* ------------------------------------------------------------------------------------ *@
+            @* --------------------------- Options Administracion --------------------------------- *@
+            @* ------------------------------------------------------------------------------------ *@
+            <div class="col-sm-12">
+                <div class="col-sm-12 d-flex justify-content-center mb-5">
+                    <h2 class="txtAdminSections">Administración</h2>
+                </div>
+                <div class="col-sm-12 d-flex justify-content-center">
+                    <div class="col-sm-auto CirclesOptions Teacher">
+                        <p class="txtCircles">Profesores</p>
+                    </div>
+
+                    <div class="col-sm-auto CirclesOptions Student">
+                        <p class="txtCircles">Estudiantes</p>
+                    </div>
+
+                    <div class="col-sm-auto CirclesOptions Materia">
+                        <p class="txtCircles">Asignaturas</p>
+                    </div>
+
+                    <div class="col-sm-auto CirclesOptions Reportes" style="margin-right:0px;">
+                        <p class="txtCircles">Reportes</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+    @*<div class="ContainerContent col-sm-12 h-100">
+
+    </div>*@
+</div>

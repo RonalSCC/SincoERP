@@ -1,0 +1,261 @@
+﻿
+@{
+    ViewBag.Title = "Profesores";
+}
+
+<style>
+    .ContainerContent {
+        background: linear-gradient(90deg, white, white, white, rgba(255,255,255,.7));
+        border-radius: 8px;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+    }
+
+    .txtProfesor {
+        text-align:center;
+        font-weight: 500;
+        font-size: 1.8rem;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        background: rgba(0,0,0,0.02);
+    }
+
+    .theadSinco {
+        background-color: var(--colorBase);
+        color:white;
+        font-size: .9rem;
+    }
+
+    .theadSinco th{
+        font-weight: 500;
+    }
+
+    .ContainerButtons {
+        position:absolute;
+        right: 10%;
+        top: 3%;
+    }
+
+    .btnOptions {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 100%;
+        border: 1px solid rgba(0,0,0,0.2);
+        background: var(--colorBase);
+        color: white;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+        .btnOptions:hover {
+            filter: saturate(180%);
+        }
+        .btnOptions:hover .IconButtons {
+            color:white;
+        }
+        .IconButtons:hover {
+            color: white;
+        }
+    #ContainerImagenProfesor {
+        position: relative;
+    }
+
+        #ContainerImagenProfesor::before {
+            content: '';
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background: url('../../Images/Teacher.jpg');
+            background-size: cover;
+            background-position: 55%;
+            border-radius: 5px 0px 0px 5px;
+            box-shadow: 2px 0px 3px rgba(0,0,0,0.2);
+        }
+
+    .tbodyProfesor {
+        font-size: .8rem;
+    }
+
+    .TitleModal {
+        text-align:center;
+        color: var(--colorBase);
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    }
+
+    .ContainerForm {
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 5px;
+    }
+
+    #FormNewProfesor label {
+        color: rgba(0,0,0,0.7);
+        font-size: .8rem;
+    }
+
+    #FormNewProfesor input:not(.form-check-input) {
+        border: none;
+        font-size: .8rem;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        border-radius: 0px;
+    }
+
+    .btnModalSave {
+        background: var(--colorBase);
+        color: white;
+        font-size: .85rem;
+        margin-right: 1rem;
+    }
+
+        .btnModalSave:hover {
+            filter: saturate(170%);
+            color: white;
+        }
+
+    .btnModalCancel {
+        background: rgba(0,0,0,0.2);
+        font-size:.85rem;
+        color:white;
+    }
+
+        .btnModalCancel:hover {
+            filter: contrast(150%);
+            color:white;
+        }
+
+    .TitleSection {
+        color: var(--colorBase);
+        font-weight: 500;
+        font-size: .9rem;
+    }
+</style>
+<div class="col-sm-12 h-100 p-3">
+    <div class="ContainerContent d-flex col-sm-12 h-100">
+        <div id="ContainerImagenProfesor" class="col-sm-2 h-100">
+        </div>
+        <div class="col-sm-10">
+            <div class="col-sm-12 mb-5 mt-3 position-relative">
+                <h2 class="txtProfesor">Profesores</h2>
+
+                <div class="col-sm-auto ContainerButtons">
+                    <button onclick="AbrirModal()" class="btn btnOptions">
+                        <i class="fa-solid fa-circle-plus IconButtons"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-sm-12 d-flex justify-content-center">
+                <div class="col-sm-10">
+                    <table id="TableProfesores" class="table table-hover table-striped table-bordered">
+                        <thead class="theadSinco">
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Identificacion</th>
+                                <th scope="col">Edad</th>
+                                <th scope="col">Dirección</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Activo</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbodyProfesor">
+                            <tr>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mdo</td>
+                                <td>sdf</td>
+                                <td>mdo</td>
+                                <td>mdo</td>
+                                <td>mdo</td>
+                            </tr>
+                            <tr>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mdo</td>
+                                <td>mdo</td>
+                                <td>mdo</td>
+                                <td>mdo</td>
+                                <td>mdo</td>
+                            </tr>
+                            <tr>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mdo</td>
+                                <td>mdo</td>
+                                <td>mdo</td>
+                                <td>mdo</td>
+                                <td>mdo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ModalNewProfesor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-sm-12">
+                        <div class="col-sm-12 mb-3">
+                            <h3 class="TitleModal">Nuevo Profesor</h3>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-12 mb-2" style="padding-left: 1%;">
+                                <label class="TitleSection">Datos personales</label>
+                            </div>
+                            <div class="col-sm-12 ContainerForm mb-4" style="padding: 2% 4%;">
+                                <form id="FormNewProfesor" class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="inputNombre" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="inputNombre">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="inputApellido" class="form-label">Apellido</label>
+                                        <input type="text" class="form-control" id="inputApellido">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="inputIdentificacion" class="form-label">Identificación</label>
+                                        <input type="tel" class="form-control" id="inputIdentificacion">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="inputDireccion" class="form-label">Direccion</label>
+                                        <input type="text" class="form-control" id="inputDireccion">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="inputTelefono" class="form-label">Telefono</label>
+                                        <input type="text" class="form-control" id="inputTelefono">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="inputEdad" class="form-label">Edad</label>
+                                        <input type="tel" class="form-control" id="inputEdad">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-check form-switch">
+                                            <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
+                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="col-sm-12 d-flex justify-content-end">
+                                <button class="btn btnModalSave">Guardar</button>
+
+                                <button class="btn btnModalCancel">Cancelar</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Js/ProfesoresController.js"></script>
+</div>
+
+

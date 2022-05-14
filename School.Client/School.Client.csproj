@@ -120,6 +120,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Clases\Controllers\Profesores.cs" />
+    <Compile Include="Clases\Controllers\Retorno.cs" />
+    <Compile Include="Clases\JsonMethods.cs" />
+    <Compile Include="Comunication\ApiManager.cs" />
+    <Compile Include="Controllers\ComunicationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SchoolController.cs" />
     <Compile Include="Global.asax.cs">
@@ -144,6 +149,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="css\EstilosIncompletosBootstrapVol1.css" />
     <Content Include="favicon.ico" />
     <Content Include="Frameworks\DataTables\DataTables-1.11.5\css\dataTables.bootstrap.css" />
     <Content Include="Frameworks\DataTables\DataTables-1.11.5\css\dataTables.bootstrap.min.css" />
@@ -190,6 +196,11 @@
     <Content Include="Frameworks\DataTables\datatables.js" />
     <Content Include="Frameworks\DataTables\datatables.min.css" />
     <Content Include="Frameworks\DataTables\datatables.min.js" />
+    <Content Include="Frameworks\IziToast\dist\css\iziToast.css" />
+    <Content Include="Frameworks\IziToast\dist\css\iziToast.min.css" />
+    <Content Include="Frameworks\IziToast\dist\js\iziToast.js" />
+    <Content Include="Frameworks\IziToast\dist\js\iziToast.min.js" />
+    <Content Include="Frameworks\IziToast\src\js\iziToast.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Logo.png" />
@@ -222,6 +233,12 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Frameworks\jquery.SerializeObject.js" />
+    <Content Include="Frameworks\IziToast\src\css\animations.styl" />
+    <Content Include="Frameworks\IziToast\src\css\layouts.styl" />
+    <Content Include="Frameworks\IziToast\src\css\style.styl" />
+    <Content Include="Frameworks\IziToast\src\css\themes.styl" />
+    <Content Include="Frameworks\IziToast\src\css\toast.styl" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -253,6 +270,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Comunications\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

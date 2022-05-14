@@ -7,11 +7,16 @@
 
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Frameworks/DataTables/datatables.min.css" />
+    <link rel="stylesheet" href="~/css/EstilosIncompletosBootstrapVol1.css" />
+    <link rel="stylesheet" href="~/Frameworks/IziToast/dist/css/iziToast.min.css" />
+
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/ff232a0db0.js" crossorigin="anonymous"></script>
     <script src="~/Frameworks/DataTables/datatables.min.js"></script>
+    <script src="~/Frameworks/jquery.SerializeObject.js"></script>
+    <script src="~/Frameworks/IziToast/dist/js/iziToast.min.js"></script>
 
     <style>
         @@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -82,17 +87,26 @@
 <body id="Body" class="h-100">
     <div class="container-fluid h-100 p-0">
         <div id="Header" class="col-sm-12 d-flex">
+            <div class="col-sm-2 d-flex flex-wrap justify-content-center position-relative" style="visibility:hidden;">
+                <i style="font-size: 3rem; color: #0094F2; " class="fa-solid fa-heart"></i>
+                <i style="font-size: 1.5rem; color: #3b4c39; position: absolute; bottom: 55%; right: 38%;" class="fa-solid fa-heart"></i>
+                <div class="col-sm-12">
+                    <h5 class="text-center">Te extraño <b>Vivi</b></h5>
+                    <p class="text-center">Y me encantas </p>
+
+                </div>
+            </div>
             <div class="col-sm-3 d-flex justify-content-center align-items-center">
                 <img src="~/Images/Logo2.png" class="img-fluid imgLogo" />
             </div>
-            <div class="col-sm-9 d-flex align-items-center ">
+            <div class="col-sm-7 d-flex align-items-center ">
                 <div class="col-sm-12 d-flex justify-content-end">
                     <div class="col-sm-auto ContainerOptionMenu">
                         <a> <i class="fa-solid fa-rocket"></i> Profesores</a>
                     </div>
                     <div class="col-sm-auto ContainerOptionMenu">
                         <a> <i class="fa-solid fa-rocket"></i> Estudiantes</a>
-                    </div> 
+                    </div>
                     <div class="col-sm-auto ContainerOptionMenu">
                         <a> <i class="fa-solid fa-rocket"></i> Asignaturas</a>
                     </div>

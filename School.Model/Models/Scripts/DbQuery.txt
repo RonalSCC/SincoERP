@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=localhost;Database=SincoERP;User Id=NetProject; Password=SincoSchool;" Microsoft.EntityFrameworkCore.SqlServer -ContextDir Models/Context  -Context SINCOdbContext -OutputDir Models/SINCOdb -schema SCH -NoPluralize -UseDatabaseNames -f -NoOnConfiguring

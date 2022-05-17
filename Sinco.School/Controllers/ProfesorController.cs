@@ -14,7 +14,17 @@ namespace Sinco.School.Controllers
     [ApiController]
     public class ProfesorController : ControllerBase
     {
-        public static DbContextOptions<SINCOdbContext> SIESdbOptions = ConnectionSettings.SINCOdb;
+
+        public IConfiguration configuration;
+        public string connectionLogs;
+        public string connectiondb;
+
+        public ProfesorController(IConfiguration iconfig)
+        {
+            configuration = iconfig;
+            connectiondb = configuration.GetValue<string>("KeysConfiguration:DbConnection");
+            connectionLogs = configuration.GetValue<string>("KeysConfiguration:DbConnectionLogs");
+        }
 
         [HttpPost("ConsultarProfesores")]
         [HttpGet("ConsultarProfesores")]
@@ -24,10 +34,9 @@ namespace Sinco.School.Controllers
             string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
             try
             {
-                var x= Environment.GetEnvironmentVariable("DbConnection");
+                DbContextOptions<SINCOdbContext> SIESdbOptions = ConnectionSettings.SINCOdb(connectiondb);
                 using (SINCOdbContext db = new SINCOdbContext(SIESdbOptions))
                 {
-
                     var ListProfesores = db.Profesor.ToList();
                     db.SaveChanges();
 
@@ -50,7 +59,7 @@ namespace Sinco.School.Controllers
                     FechaRegistro = DateTime.Now,
                     DetalleTransaccion = "Ha ocurrido un error en la ejecución del servicio",
                     Error = true
-                });
+                }, connectionLogs);
                 return new JsonResult(Retorno.ToJson());
             }
         }

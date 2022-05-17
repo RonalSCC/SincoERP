@@ -23,17 +23,25 @@ namespace School.Client.Controllers
 
         public async Task<ActionResult> Profesores()
         {
+            var Salida = new ProfesoresOut();
             try
             {
-                var data =  await ApiManager.CallApiPost(new { }.ToJson(), URLServices, $"ConsultarProfesores");
-                return PartialView("Profesores", data);
+                var data =  await ApiManager.CallApiPost("",URLServices, $"Profesor/ConsultarProfesores");
+                if (data != null)
+                {
+                    Salida = data.ToJson().FromJson<ProfesoresOut>();
+                }
+                else {
+                    Salida.TransactionID = 0;
+                    Salida.Descripcion = "El servicio no ha respondido correctamente";
+                }
+                return PartialView("Profesores", Salida);
             }
             catch (Exception ex)
             {
-                return PartialView("Profesores", new { 
-                    TransactionID = 0,
-                    Descripcion = "Ha ocurrido un error en el consumo del servicio (ApiManager)"
-                });
+                Salida.TransactionID = 0;
+                Salida.Descripcion = "Ha ocurrido un error en el consumo del servicio";
+                return PartialView("Profesores", Salida);
             }
             
         }

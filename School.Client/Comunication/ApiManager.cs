@@ -13,7 +13,7 @@ namespace School.Client.Comunication
 {
     public static class ApiManager
     {
-        public static async Task<object> CallApiPost(string jsonObject, string baseUrl, string method)
+        public static async Task<object> CallApiPost(string jsonObject,string baseUrl, string method)
         {
             try
             {

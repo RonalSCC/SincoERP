@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using School.Model.Models.Context;
 using System;
 using System.Collections.Generic;
@@ -10,26 +11,18 @@ namespace School.Model.Models
 {
     public class ConnectionSettings
     {
-        public static DbContextOptions<SINCOdbContext> SINCOdb
+        public static DbContextOptions<SINCOdbContext> SINCOdb(string connectionString)
         {
-            get
-            {
-                string defaultConnectionSIESdb = Environment.GetEnvironmentVariable("DbConnection");
-                var optionsSIESdb = new DbContextOptionsBuilder<SINCOdbContext>();
-                optionsSIESdb.UseSqlServer(defaultConnectionSIESdb);
+            var optionsSIESdb = new DbContextOptionsBuilder<SINCOdbContext>();
+            optionsSIESdb.UseSqlServer(connectionString);
 
-                return optionsSIESdb.Options;
-            }
+            return optionsSIESdb.Options;
         }
-        public static DbContextOptions<SINCOdbLogsContext> SINCOdbLogs
+        public static DbContextOptions<SINCOdbLogsContext> SINCOdbLogs(string connectionStringLogs)
         {
-            get
-            {
-                string defaultConnectionSIESdbLogs = Environment.GetEnvironmentVariable("DbConnectionLogs");
-                var optionsSIESdbLogs = new DbContextOptionsBuilder<SINCOdbLogsContext>();
-                optionsSIESdbLogs.UseSqlServer(defaultConnectionSIESdbLogs);
-                return optionsSIESdbLogs.Options;
-            }
+            var optionsSIESdbLogs = new DbContextOptionsBuilder<SINCOdbLogsContext>();
+            optionsSIESdbLogs.UseSqlServer(connectionStringLogs);
+            return optionsSIESdbLogs.Options;
         }
     }
 }

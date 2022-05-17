@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using School.Model.Models;
@@ -14,7 +15,6 @@ namespace School.Model.Helpers
 {
     public static class Complement
     {
-        public static DbContextOptions<SINCOdbContext> SINCOdbOptions = ConnectionSettings.SINCOdb;
         public static string ToJson(this object obj)
         {
             return JsonConvert.SerializeObject(obj);
@@ -41,12 +41,13 @@ namespace School.Model.Helpers
 
         }
 
-        public static int SaveLog(LogWebApi log) {
+        public static int SaveLog(LogWebApi log, string connection = null) {
 
             var IDReturn = 0;
             try
             {
-                using (SINCOdbLogsContext db = new SINCOdbLogsContext()) {
+                DbContextOptions<SINCOdbLogsContext> SINCOdbLogsOptions = ConnectionSettings.SINCOdbLogs(connection);
+                using (SINCOdbLogsContext db = new SINCOdbLogsContext(SINCOdbLogsOptions)) {
 
                     db.LogWebApi.Add(log);
                     IDReturn = log.LogWebApiID;

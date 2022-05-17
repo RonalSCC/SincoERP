@@ -1901,25 +1901,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ronal\\.nuget\\packages\\": {}
+    "C:\\Users\\ronal\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ronal\\source\\repos\\RonalSCC\\SincoERP\\School.Model\\School.Model.csproj",
+      "projectUniqueName": "C:\\GIT\\RonalSCC\\SincoERP\\School.Model\\School.Model.csproj",
       "projectName": "School.Model",
-      "projectPath": "C:\\Users\\Ronal\\source\\repos\\RonalSCC\\SincoERP\\School.Model\\School.Model.csproj",
-      "packagesPath": "C:\\Users\\Ronal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ronal\\source\\repos\\RonalSCC\\SincoERP\\School.Model\\obj\\",
+      "projectPath": "C:\\GIT\\RonalSCC\\SincoERP\\School.Model\\School.Model.csproj",
+      "packagesPath": "C:\\Users\\ronal\\.nuget\\packages\\",
+      "outputPath": "C:\\GIT\\RonalSCC\\SincoERP\\School.Model\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Ronal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ronal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
@@ -1991,7 +1997,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

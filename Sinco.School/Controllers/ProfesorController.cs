@@ -28,7 +28,7 @@ namespace Sinco.School.Controllers
 
         [HttpPost("ConsultarProfesores")]
         [HttpGet("ConsultarProfesores")]
-        public JsonResult ConsultarProfesores()
+        public ActionResult ConsultarProfesores()
         {
             RetornoConsultaProfesores Retorno = new RetornoConsultaProfesores();
             string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
@@ -46,11 +46,13 @@ namespace Sinco.School.Controllers
                 }
 
             outResponse:
-                return new JsonResult(Retorno.ToJson());
+                return Ok(Retorno.ToJson());
 
             }
             catch (Exception ex)
             {
+                Retorno.TransaccionID = 0;
+                Retorno.Descripcion = "Ha ocurrido un error en la ejecución del servicio";
                 Complement.SaveLog(new LogWebApi
                 {
                     API = nomapi,
@@ -60,12 +62,12 @@ namespace Sinco.School.Controllers
                     DetalleTransaccion = "Ha ocurrido un error en la ejecución del servicio",
                     Error = true
                 }, connectionLogs);
-                return new JsonResult(Retorno.ToJson());
+                return BadRequest(Retorno.ToJson());
             }
         }
         [HttpPost("CrearProfesor")]
         [HttpGet("CrearProfesor")]
-        public JsonResult CrearProfesor(CrearProfesorIn data)
+        public ActionResult CrearProfesor(Profesor data)
         {
             RetornoGeneral Retorno = new RetornoGeneral();
             string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
@@ -110,11 +112,13 @@ namespace Sinco.School.Controllers
                 }
 
             outResponse:
-                return new JsonResult(Retorno.ToJson());
+                return Ok(Retorno.ToJson());
 
             }
             catch (Exception ex)
             {
+                Retorno.TransaccionID = 0;
+                Retorno.Descripcion = "Ha ocurrido un error en la ejecución del servicio";
                 Complement.SaveLog(new LogWebApi
                 {
                     API = nomapi,
@@ -124,13 +128,13 @@ namespace Sinco.School.Controllers
                     DetalleTransaccion = "Ha ocurrido un error en la ejecución del servicio",
                     Error = true
                 });
-                return new JsonResult(Retorno.ToJson());
+                return BadRequest(Retorno.ToJson());
             }
         }
 
         [HttpPost("EditarProfesor")]
         [HttpGet("EditarProfesor")]
-        public JsonResult EditarProfesor(EditarProfesorIn data)
+        public ActionResult EditarProfesor(Profesor data)
         {
             RetornoGeneral Retorno = new RetornoGeneral();
             string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
@@ -172,11 +176,13 @@ namespace Sinco.School.Controllers
                 }
 
             outResponse:
-                return new JsonResult(Retorno.ToJson());
+                return Ok(Retorno.ToJson());
 
             }
             catch (Exception ex)
             {
+                Retorno.TransaccionID = 0;
+                Retorno.Descripcion = "Ha ocurrido un error en la ejecución del servicio";
                 Complement.SaveLog(new LogWebApi
                 {
                     API = nomapi,
@@ -186,13 +192,13 @@ namespace Sinco.School.Controllers
                     DetalleTransaccion = "Ha ocurrido un error en la ejecución del servicio",
                     Error = true
                 });
-                return new JsonResult(Retorno.ToJson());
+                return BadRequest(Retorno.ToJson());
             }
         }
 
         [HttpPost("AsignarMateriasProfesor")]
         [HttpGet("AsignarMateriasProfesor")]
-        public JsonResult AsignarMateriasProfesor(AsignarMateriasProfesorIn data)
+        public ActionResult AsignarMateriasProfesor(ProfesorAsignatura data)
         {
             RetornoGeneral Retorno = new RetornoGeneral();
             string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
@@ -258,11 +264,13 @@ namespace Sinco.School.Controllers
                 }
 
             outResponse:
-                return new JsonResult(Retorno.ToJson());
+                return Ok(Retorno.ToJson());
 
             }
             catch (Exception ex)
             {
+                Retorno.TransaccionID = 0;
+                Retorno.Descripcion = "Ha ocurrido un error en la ejecución del servicio";
                 Complement.SaveLog(new LogWebApi
                 {
                     API = nomapi,
@@ -272,13 +280,13 @@ namespace Sinco.School.Controllers
                     DetalleTransaccion = "Ha ocurrido un error en la ejecución del servicio",
                     Error = true
                 });
-                return new JsonResult(Retorno.ToJson());
+                return BadRequest(Retorno.ToJson());
             }
         }
 
         [HttpPost("EditarAsignacionMateriasProfesor")]
         [HttpGet("EditarAsignacionMateriasProfesor")]
-        public JsonResult EditarAsignacionMateriasProfesor(EditarAsignacionMateriasProfesorIn data)
+        public ActionResult EditarAsignacionMateriasProfesor(ProfesorAsignatura data)
         {
             RetornoGeneral Retorno = new RetornoGeneral();
             string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
@@ -314,11 +322,13 @@ namespace Sinco.School.Controllers
                 }
 
             outResponse:
-                return new JsonResult(Retorno.ToJson());
+                return Ok(Retorno.ToJson());
 
             }
             catch (Exception ex)
             {
+                Retorno.TransaccionID = 0;
+                Retorno.Descripcion = "Ha ocurrido un error en la ejecución del servicio";
                 Complement.SaveLog(new LogWebApi
                 {
                     API = nomapi,
@@ -328,7 +338,7 @@ namespace Sinco.School.Controllers
                     DetalleTransaccion = "Ha ocurrido un error en la ejecución del servicio",
                     Error = true
                 });
-                return new JsonResult(Retorno.ToJson());
+                return BadRequest(Retorno.ToJson());
             }
         }
     }

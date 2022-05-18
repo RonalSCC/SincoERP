@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "Asignar Materias Profesor";
+    Layout = null;
+}
+@using School.Client.Clases.Controllers;
+@using School.Client.Models;
+@model RetornoConsultarMateriasCalificadas
+@{
+    var db = new SincoERPEntities();
+    var AlumnoID = 0;
+    var ViewAlumnoID = ViewData["AlumnoID"];
+    if (ViewAlumnoID != null)
+    {
+        int.TryParse(ViewAlumnoID.ToString(), out AlumnoID);
+    }
+}
+<style>
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        background: rgba(0,0,0,0.02);
+    }
+
+    .theadSinco {
+        background-color: var(--colorBase);
+        color: white;
+        font-size: .9rem;
+    }
+
+        .theadSinco th {
+            font-weight: 500;
+        }
+
+    .IconCheckOn {
+        color: green;
+        font-size: 1.2rem;
+    }
+
+    .IconCheckOff {
+        color: gray;
+        font-size: 1.2rem;
+    }
+
+
+    form label {
+        color: rgba(0,0,0,0.7);
+        font-size: .8rem;
+    }
+
+    form input:not(.form-check-input) {
+        border: none;
+        font-size: .8rem;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        border-radius: 0px;
+    }
+
+    form select {
+        border: none !important;
+        font-size: .8rem !important;
+        border-bottom: 1px solid rgba(0,0,0,0.2) !important;
+        border-radius: 0px !important;
+    }
+</style>
+
+
+<div class="col-sm-12 p-3">
+    <div class="col-sm-12 mb-5">
+        <h3 class="text-center">Materias Calificadas</h3>
+        <p class="text-center" style="color: rgba(0,0,0,0.7);">Selecciona la asignatura que deseas calificar</p>
+    </div>
+    <div class="col-sm-12 d-flex justify-content-center mb-4">
+        <form id="FormCalAsignatura" action="#" class="col-sm-11 d-flex flex-wrap g-3">
+            <div class="col-md-4">
+                <label for="inputNombre" class="form-label">Asignatura</label>
+                <select name="AsignaturaID" class="form-select w-90" required>
+                    <option selected>Selecciona una asignatura del menú</option>
+                    @foreach (var item in db.Asignatura.Where(x => x.Activo == true))
+                    {
+                        <option value="@item.AsignaturaID">@item.Nombre</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="inputNombre" class="form-label">Año academico</label>
+                <select name="AnioAcademico" class="form-select w-90" required>
+                    <option selected>Selecciona un año academico</option>
+                    @foreach (var item in db.AnioAcademico.Where(z => z.Activo == true).ToList())
+                    {
+                        <option value="@item.AnioAcademicoID">@item.Anio</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="inputNombre" class="form-label">Calificación</label>
+                <input name="Calificacion" type="tel" class="form-control w-80" id="inputCalificacion" max="5" required>
+            </div>
+            <div class="col-md-2 d-flex align-items-end justify-content-center">
+                <button class="btn btnModal btnModalSave w-100" type="button" onclick="SendNewCalificacion(@AlumnoID)">
+                    <i class="IconsButtons fa-solid fa-floppy-disk"></i>
+                    Guardar
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    @if (Model.ListaCalificaciones != null && Model.ListaCalificaciones.Count > 0)
+    {
+        <div class="col-sm-12 d-flex justify-content-center">
+            <table id="TableMateriasAlumno" class="table table-hover table-striped table-bordered w-90">
+                <thead class="theadSinco">
+                    <tr>
+                        <th class="thTable w-40" scope="col">Nombre Asignatura</th>
+                        <th class="thTable w-15" scope="col">Codigo Asignatura</th>
+                        <th class="thTable w-15" scope="col">Año academico</th>
+                        <th class="thTable w-15" scope="col">Calificación</th>
+                    </tr>
+                </thead>
+                <tbody class="tbodyProfesor">
+
+                    @if (Model.ListaCalificaciones != null && Model.ListaCalificaciones?.Count > 0)
+                    {
+                        foreach (var ac in Model.ListaCalificaciones)
+                        {
+                            <tr>
+                                <td>@ac.Asignatura</td>
+                                <td class="text-center">@ac.CodigoAsignatura</td>
+                                <td class="text-center">@ac.Anio</td>
+                                <td class="text-center">@ac.Calificacion</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+<div class="col-sm-12 d-flex justify-content-center">
+    <div class="col-sm-11 d-flex justify-content-end">
+        <button class="btn btnModal btnModalCancel" style="margin-right: 1%;" type="button" data-bs-dismiss="modal">
+            <i class="IconsButtons fa-solid fa-ban"></i>
+            Cancelar
+        </button>
+    </div>
+</div>
+</div>
+
+
+

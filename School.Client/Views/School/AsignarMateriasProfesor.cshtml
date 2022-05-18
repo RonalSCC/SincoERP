@@ -6,7 +6,7 @@
 @using School.Client.Clases.Controllers;
 @using School.Client.Models;
 @model RetornoConsultarMateriasProfesor
-@{ 
+@{
     var db = new SincoERPEntities();
     var ProfesorID = 0;
     var ViewProfesorID = ViewData["ProfesorID"];
@@ -83,7 +83,7 @@
                 <label for="inputNombre" class="form-label">Año academico</label>
                 <select name="AnioAcademicoID" class="form-select w-90" required>
                     <option selected>Selecciona un año academico</option>
-                    @foreach (var item in db.AnioAcademico.Where(z=> z.Activo == true).ToList())
+                    @foreach (var item in db.AnioAcademico.Where(z => z.Activo == true).ToList())
                     {
                         <option value="@item.AnioAcademicoID">@item.Anio</option>
                     }
@@ -136,6 +136,13 @@
             </table>
         </div>
     }
+
+    <div class="col-sm-12 d-flex justify-content-end">
+        <button class="btn btnModal btnModalCancel" type="button" data-bs-dismiss="modal">
+            <i class="IconsButtons fa-solid fa-ban"></i>
+            Cancelar
+        </button>
+    </div>
 </div>
 
 

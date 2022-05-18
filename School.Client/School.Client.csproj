@@ -242,6 +242,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Clases\Controllers\Asignaturas.cs" />
+    <Compile Include="Clases\Controllers\Estudiante.cs" />
     <Compile Include="Clases\Controllers\Profesores.cs" />
     <Compile Include="Clases\Controllers\Retorno.cs" />
     <Compile Include="Clases\JsonMethods.cs" />
@@ -17966,7 +17968,18 @@
     <Content Include="Frameworks\NewFontAwesome\webfonts\fa-solid-900.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Clase.jpg" />
+    <Content Include="Images\ClaseBackground.png" />
     <Content Include="Images\Logo.png" />
+    <Content Include="Images\Logo2.png" />
+    <Content Include="Images\Materias.jpg" />
+    <Content Include="Images\Pasillo.jpg" />
+    <Content Include="Images\Pencils.jpg" />
+    <Content Include="Images\Reportes.jpg" />
+    <Content Include="Images\Student.jpg" />
+    <Content Include="Images\Teacher.jpg" />
+    <Content Include="Js\AlumnoController.js" />
+    <Content Include="Js\AsignaturaController.js" />
     <Content Include="Js\ProfesoresController.js" />
     <Content Include="Models\SINCOdb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -18102,6 +18115,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -18126,6 +18141,16 @@
     <Content Include="Views\School\FormNewProfesor.cshtml" />
     <Content Include="Views\School\_GridProfesores.cshtml" />
     <Content Include="Views\School\AsignarMateriasProfesor.cshtml" />
+    <Content Include="Views\School\Estudiantes.cshtml" />
+    <Content Include="Views\School\FormStudent.cshtml" />
+    <Content Include="Views\School\_GridEstudiantes.cshtml" />
+    <Content Include="Views\School\AsignarMateriasEstudiante.cshtml" />
+    <Content Include="Views\School\FormAsignaturas.cshtml" />
+    <Content Include="Views\School\Asignaturas.cshtml" />
+    <Content Include="Views\School\_GridAsignaturas.cshtml" />
+    <Content Include="Views\School\ReporteGeneral.cshtml" />
+    <Content Include="Views\School\Reportes.cshtml" />
+    <Content Include="Views\School\_GridReporte.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

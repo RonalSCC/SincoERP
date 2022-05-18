@@ -199,6 +199,12 @@
             $('#TableProfesores').DataTable();
         });
     }
+
+    function AbrirModal() {
+        $('#ContainerForm').load('@Url.Action("FormNewProfesor", "School")');
+        $('#ModalNewProfesor').modal('show');
+        $('#TitleModal').text('Nuevo Profesor');
+    }
 </script>
 <div class="col-sm-12 h-100 p-3">
     <div class="ContainerContent d-flex col-sm-12 h-100">
@@ -232,7 +238,7 @@
                 <div class="modal-body d-flex justify-content-center">
                     <div class="col-sm-11">
                         <div class="col-sm-12 mb-3">
-                            <h3 class="TitleModal">Nuevo Profesor</h3>
+                            <h3 id="TitleModal" class="TitleModal">Nuevo Profesor</h3>
                         </div>
 
                         <div class="col-sm-12">

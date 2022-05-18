@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Reportes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using School.Client.Clases.Controllers;
+@using School.Client.Clases;
+
+@model RetornoGeneral
+
+<style>
+    .ContainerContent {
+        background: linear-gradient(90deg, white, white, white, rgba(255,255,255,.7));
+        border-radius: 8px;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+    }
+
+    .txtProfesor {
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.8rem;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        background: rgba(0,0,0,0.02);
+    }
+
+    .theadSinco {
+        background-color: var(--colorBase);
+        color: white;
+        font-size: .9rem;
+    }
+
+        .theadSinco th {
+            font-weight: 500;
+        }
+
+    .ContainerButtons {
+        position: absolute;
+        right: 10%;
+        top: 3%;
+    }
+
+    .btnOptions {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 100%;
+        border: 1px solid rgba(0,0,0,0.2);
+        background: var(--colorBase);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .btnOptions:hover {
+            filter: saturate(180%);
+        }
+
+            .btnOptions:hover .IconButtons {
+                color: white;
+            }
+
+    .IconButtons:hover {
+        color: white;
+    }
+
+    #ContainerImagen {
+        position: relative;
+    }
+
+        #ContainerImagen::before {
+            content: '';
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background: url('../../Images/Reportes.jpg');
+            background-size: cover;
+            background-position: 55%;
+            border-radius: 5px 0px 0px 5px;
+            box-shadow: 2px 0px 3px rgba(0,0,0,0.2);
+        }
+
+    .tbodyProfesor {
+        font-size: .8rem;
+    }
+
+    .IconCheckOn {
+        color: green;
+        font-size: 1.2rem;
+    }
+
+    .IconCheckOff {
+        color: gray;
+        font-size: 1.2rem;
+    }
+
+    .thTable {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .IconEdit {
+        font-size: 1rem;
+        color: var(--colorBase);
+        cursor: pointer;
+    }
+
+    .tbodyTable {
+        font-size: .8rem;
+    }
+</style>
+<div class="col-sm-12 h-100 p-3">
+    <div class="ContainerContent d-flex col-sm-12 h-100">
+        <div id="ContainerImagen" class="col-sm-2 h-100">
+        </div>
+        <div class="col-sm-10">
+            <div class="col-sm-12 d-flex justify-content-center mb-3 mt-3 ">
+                <div class="col-sm-9 position-relative">
+                    <h2 class="txtProfesor">Reporte General</h2>
+                    <p class="text-center">Calificaciones de los alumnos en los diferentes periodos</p>
+                </div>
+            </div>
+
+            <div class="col-sm-12 d-flex justify-content-center">
+                <div class="col-sm-11" id="ContainerGrid">
+                    @Html.Action("GridReporte", "School")
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Js/AsignaturaController.js"></script>
+</div>
+
+

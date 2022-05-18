@@ -25,6 +25,46 @@ namespace Sinco.School.Controllers
             connectionLogs = configuration.GetValue<string>("KeysConfiguration:DbConnectionLogs");
         }
 
+        [HttpPost("ConsultarEstudiantes")]
+        [HttpGet("ConsultarEstudiantes")]
+        public ActionResult ConsultarEstudiantes()
+        {
+            RetornoConsultarEstudiantes Retorno = new RetornoConsultarEstudiantes();
+            string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            try
+            {
+                DbContextOptions<SINCOdbContext> SIESdbOptions = ConnectionSettings.SINCOdb(connectiondb);
+                using (SINCOdbContext db = new SINCOdbContext(SIESdbOptions))
+                {
+                    var ListAlumnos = db.Alumno.ToList();
+                    db.SaveChanges();
+
+                    Retorno.TransaccionID = 1;
+                    Retorno.Descripcion = "Transacción exitosa";
+                    Retorno.ListEstudiantes = ListAlumnos;
+                }
+
+            outResponse:
+                return Ok(Retorno.ToJson());
+
+            }
+            catch (Exception ex)
+            {
+                Retorno.TransaccionID = 0;
+                Retorno.Descripcion = "Ha ocurrido un error en la ejecución del servicio";
+                Complement.SaveLog(new LogWebApi
+                {
+                    API = nomapi,
+                    JsonEntrada = null,
+                    JsonSalida = ex.ToJson(),
+                    FechaRegistro = DateTime.Now,
+                    DetalleTransaccion = "Ha ocurrido un error en la ejecución del servicio",
+                    Error = true
+                }, connectionLogs);
+                return BadRequest(Retorno.ToJson());
+            }
+        }
+
         [HttpPost("CrearAlumno")]
         [HttpGet("CrearAlumno")]
         public ActionResult CrearAlumno(Alumno data)
@@ -128,6 +168,16 @@ namespace Sinco.School.Controllers
                         Retorno.Descripcion = "La actualización no se puede realizar ya que existe un alumno con el número de identificación";
                         goto outResponse;
                     }
+
+                    if (AlumnoEdit.Activo == true && data.Activo == false)
+                    {
+                        var cantidadAsignaturasAlumno = db.AlumnoAsignatura.Where(x => x.AlumnoID == AlumnoEdit.AlumnoID).Count();
+                        if (cantidadAsignaturasAlumno > 0) {
+                            Retorno.TransaccionID = 0;
+                            Retorno.Descripcion = "No se puede inactivar un alumno con materias calificadas";
+                            goto outResponse;
+                        }
+                    }
                     #endregion
 
                     if (!string.IsNullOrEmpty(data.Nombre)) { AlumnoEdit.Nombre = data.Nombre; }
@@ -222,6 +272,15 @@ namespace Sinco.School.Controllers
                     {
                         Retorno.TransaccionID = 0;
                         Retorno.Descripcion = "La calificación no puede ser menor de 0 y mayor a 5";
+                        goto outResponse;
+                    }
+
+                    var validateProfesorAsignatura = db.ProfesorAsignatura.FirstOrDefault(x => x.AsignaturaID == data.AsignaturaID && x.AnioAcademicoID == data.AnioAcademico);
+                    if (validateProfesorAsignatura == null)
+                    {
+                        Retorno.TransaccionID = 0;
+                        Retorno.Descripcion = "No se puede calificar una materia que no tiene asignada un profesor";
+                        goto outResponse;
                     }
                     #endregion
 
@@ -281,6 +340,63 @@ namespace Sinco.School.Controllers
                     Retorno.Descripcion = "Transacción exitosa";
                 }
 
+                return Ok(Retorno.ToJson());
+
+            }
+            catch (Exception ex)
+            {
+                Retorno.TransaccionID = 0;
+                Retorno.Descripcion = "Ha ocurrido un error en la ejecución del servicio";
+                Complement.SaveLog(new LogWebApi
+                {
+                    API = nomapi,
+                    JsonEntrada = null,
+                    JsonSalida = ex.ToJson(),
+                    FechaRegistro = DateTime.Now,
+                    DetalleTransaccion = "Ha ocurrido un error en la ejecución del servicio",
+                    Error = true
+                }, connectionLogs);
+
+                return BadRequest(Retorno.ToJson());
+            }
+        }
+
+        [HttpPost("ConsultarMateriasCalificadas")]
+        [HttpGet("ConsultarMateriasCalificadas")]
+        public ActionResult ConsultarMateriasCalificadas(ConsultarMateriasCalificadasIn data)
+        {
+            RetornoConsultarMateriasCalificadas Retorno = new RetornoConsultarMateriasCalificadas();
+            string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            try
+            {
+                DbContextOptions<SINCOdbContext> SIESdbOptions = ConnectionSettings.SINCOdb(connectiondb);
+                using (SINCOdbContext db = new SINCOdbContext(SIESdbOptions))
+                {
+                    #region Validaciones
+                    if (data == null)
+                    {
+                        Retorno.TransaccionID = 0;
+                        Retorno.Descripcion = "No se ha especificado información del alumno";
+                        goto outResponse;
+                    }
+
+                    var objAlumno = db.Alumno.FirstOrDefault(x => x.AlumnoID == data.AlumnoID);
+                    if (objAlumno == null)
+                    {
+                        Retorno.TransaccionID = 0;
+                        Retorno.Descripcion = "No se ha encontrado información del alumno";
+                        goto outResponse;
+                    }
+                    #endregion
+
+                    var ListCalificaciones = db.Vista_CalificacionAlumno.Where(x => x.AlumnoID == data.AlumnoID).ToList();
+
+                    Retorno.ListaCalificaciones = ListCalificaciones;
+                    Retorno.TransaccionID = 1;
+                    Retorno.Descripcion = "Transacción exitosa";
+                }
+
+                outResponse:
                 return Ok(Retorno.ToJson());
 
             }

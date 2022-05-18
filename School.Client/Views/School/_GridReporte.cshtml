@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "_GridEstudiantes";
+}
+
+@using School.Client.Clases.Controllers;
+@model ReporteOut
+<div class="table-responsive w-100">
+    <table id="TableReporte" class="table table-hover table-striped table-bordered">
+        <thead class="theadSinco">
+            <tr>
+                <th class="thTable" scope="col">Año academico</th>
+                <th class="thTable" scope="col">Identificación Alumno</th>
+                <th class="thTable" scope="col">Nombre Alumno</th>
+                <th class="thTable" scope="col">Código Materia</th>
+                <th class="thTable" scope="col">Nombre Materia</th>
+                <th class="thTable" scope="col">Identificación del profesor</th>
+                <th class="thTable" scope="col">Nombre del profesor</th>
+                <th class="thTable" scope="col">Calificación final</th>
+                <th class="thTable" scope="col">Aprobó</th>
+            </tr>
+        </thead>
+        <tbody class="tbodyTable">
+
+            @if (Model.ListaCalificaciones != null && Model.ListaCalificaciones?.Count > 0)
+            {
+                foreach (var alum in Model.ListaCalificaciones)
+                {
+                    <tr>
+                        <td class="text-center">@alum.Anio</td>
+                        <td>@alum.IdentificacionAlumno</td>
+                        <td>@alum.NombreAlumno</td>
+                        <td class="text-center">@alum.CodigoAsignatura</td>
+                        <td>@alum.Asignatura</td>
+                        <td>@alum.IdentificacionProfesor</td>
+                        <td>@alum.NombreProfesor</td>
+                        <td class="text-center">@alum.Calificacion</td>
+                        @if (alum.Aprobo == 1)
+                        {
+                            <td class="text-center"><i class="fa-solid fa-check IconCheckOn"></i></td>
+                        }
+                        else
+                        {
+                            <td class="text-center"><i class="fa-solid fa-check IconCheckOff"></i></td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

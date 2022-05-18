@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "_GridEstudiantes";
+}
+
+@using School.Client.Clases.Controllers;
+@model AlumnoOut
+<table id="TableAlumnos" class="table table-hover table-striped table-bordered">
+    <thead class="theadSinco">
+        <tr>
+            <th class="thTable" scope="col">Options</th>
+            <th class="thTable" scope="col">Nombre</th>
+            <th class="thTable" scope="col">Apellido</th>
+            <th class="thTable" scope="col">Identificacion</th>
+            <th class="thTable" scope="col">Edad</th>
+            <th class="thTable" scope="col">Dirección</th>
+            <th class="thTable" scope="col">Telefono</th>
+            <th class="thTable" scope="col">Activo</th>
+        </tr>
+    </thead>
+    <tbody class="tbodyTable">
+
+        @if (Model.ListEstudiantes != null && Model.ListEstudiantes?.Count > 0)
+        {
+            foreach (var alum in Model.ListEstudiantes)
+            {
+                <tr>
+                    <td class="text-center">
+                        <i class="fa-solid fa-user-check IconEdit" onclick="VerAsignaturasAlumno(@alum.AlumnoID)" style="margin-right:10%;" data-bs-toggle="tooltip" data-bs-placement="top" title="Calificar materias"></i>
+                        <i class="fa-duotone fa-pencil IconEdit" onclick="EditAlumno(@alum.AlumnoID)" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i>
+                    </td>
+                    <td>@alum.Nombre</td>
+                    <td>@alum.Apellido</td>
+                    <td>@alum.Identificacion</td>
+                    <td class="text-center">@alum.Edad</td>
+                    <td>@alum.Direccion</td>
+                    <td>@alum.Telefono</td>
+                    @if (alum.Activo == true)
+                    {
+                        <td class="text-center"><i class="fa-solid fa-check IconCheckOn"></i></td>
+                    }
+                    else
+                    {
+                        <td class="text-center"><i class="fa-solid fa-check IconCheckOff"></i></td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+

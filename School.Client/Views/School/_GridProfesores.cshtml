@@ -10,7 +10,8 @@
     function EditProfesor(id) {
         if (id) {
             $('#ContainerForm').load('@Url.Action("FormNewProfesor", "School")?IDProfesor=' + id);
-            AbrirModal();
+            $('#ModalNewProfesor').modal('show');
+            $('#TitleModal').text('Editar Profesor');
         }
     }
 

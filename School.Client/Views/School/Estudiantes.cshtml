@@ -1,0 +1,253 @@
+﻿
+@{
+    ViewBag.Title = "Estudiantes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using School.Client.Clases.Controllers;
+@using School.Client.Clases;
+
+@model RetornoGeneral
+
+<style>
+    .ContainerContent {
+        background: linear-gradient(90deg, white, white, white, rgba(255,255,255,.7));
+        border-radius: 8px;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+    }
+
+    .txtProfesor {
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.8rem;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        background: rgba(0,0,0,0.02);
+    }
+
+    .theadSinco {
+        background-color: var(--colorBase);
+        color: white;
+        font-size: .9rem;
+    }
+
+        .theadSinco th {
+            font-weight: 500;
+        }
+
+    .ContainerButtons {
+        position: absolute;
+        right: 10%;
+        top: 3%;
+    }
+
+    .btnOptions {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 100%;
+        border: 1px solid rgba(0,0,0,0.2);
+        background: var(--colorBase);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .btnOptions:hover {
+            filter: saturate(180%);
+        }
+
+            .btnOptions:hover .IconButtons {
+                color: white;
+            }
+
+    .IconButtons:hover {
+        color: white;
+    }
+
+    #ContainerImagen {
+        position: relative;
+    }
+
+        #ContainerImagen::before {
+            content: '';
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background: url('../../Images/Student.jpg');
+            background-size: cover;
+            background-position: 55%;
+            border-radius: 5px 0px 0px 5px;
+            box-shadow: 2px 0px 3px rgba(0,0,0,0.2);
+        }
+
+    .tbodyProfesor {
+        font-size: .8rem;
+    }
+
+    
+
+    .IconCheckOn {
+        color: green;
+        font-size: 1.2rem;
+    }
+
+    .IconCheckOff {
+        color: gray;
+        font-size: 1.2rem;
+    }
+
+    .thTable {
+        text-align: center;
+    }
+
+    .IconEdit {
+        font-size: 1rem;
+        color: var(--colorBase);
+        cursor: pointer;
+    }
+
+    .tbodyTable {
+        font-size: .8rem;
+    }
+
+    .btnModalSave {
+        background: var(--colorBase);
+        color: white;
+        font-size: .85rem;
+        margin-right: 1rem;
+    }
+
+        .btnModalSave:hover {
+            filter: saturate(170%);
+            color: white;
+        }
+
+    .btnModalCancel {
+        background: rgba(0,0,0,0.2);
+        font-size: .85rem;
+        color: white;
+    }
+
+        .btnModalCancel:hover {
+            filter: contrast(150%);
+            color: white;
+        }
+
+    .btnModal {
+        transition: ease .3s all;
+        width: 17%;
+    }
+
+        .btnModal:hover {
+            width: 20%;
+        }
+
+            .btnModal:hover .IconsButtons {
+                width: 10%;
+                opacity: 1;
+            }
+
+    .IconsButtons {
+        padding-right: 2%;
+        width: 0px;
+        opacity: 0;
+        transition: ease .3s all;
+    }
+</style>
+<script>
+    function ReloadGrid() {
+        $('#ContainerGrid').load('@Url.Action("GridEstudiantes", "School")', function () {
+            $('#TableAlumnos').DataTable();
+        });
+    }
+
+    function AbrirModal() {
+        $('#ContainerForm').load('@Url.Action("FormStudent", "School")');
+        $('#ModalAlumno').modal('show');
+        $('#TitleModalAlumno').text('Nuevo Estudiante');
+    }
+
+    function EditAlumno(id) {
+        if (id) {
+            $('#ContainerForm').load('@Url.Action("FormStudent", "School")?AlumnoID=' + id);
+            $('#ModalAlumno').modal('show');
+            $('#TitleModalAlumno').text('Editar Estudiante');
+        }
+    }
+
+    function VerAsignaturasAlumno(id) {
+        if (id) {
+            $('#ContainerAsignaturas').load('@Url.Action("AsignarMateriasEstudiante", "School")?AlumnoID=' + id);
+            $('#ModalAsignaturasEstudiante').modal('show');
+        }
+    }
+</script>
+<div class="col-sm-12 h-100 p-3">
+    <div class="ContainerContent d-flex col-sm-12 h-100">
+        <div id="ContainerImagen" class="col-sm-2 h-100">
+        </div>
+        <div class="col-sm-10">
+            <div class="col-sm-12 mb-5 mt-3 position-relative">
+                <h2 class="txtProfesor">Estudiantes</h2>
+
+                <div class="col-sm-auto ContainerButtons">
+                    <button onclick="AbrirModal()" class="btn btnOptions">
+                        <i class="fa-solid fa-circle-plus IconButtons"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-sm-12 d-flex justify-content-center">
+                <div class="col-sm-10" id="ContainerGrid">
+                    @Html.Action("GridEstudiantes", "School")
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="ModalAlumno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-body d-flex justify-content-center">
+                    <div class="col-sm-11">
+                        <div class="col-sm-12 mb-3">
+                            <h3 id="TitleModalAlumno" class="TitleModal">Nuevo Estudiante</h3>
+                            <p class="text-center">Diligencia los datos del estudiante</p>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-12 mb-2" style="padding-left: 1%;">
+                                <label class="TitleSection">Datos personales</label>
+                            </div>
+                            <div id="ContainerForm" class="col-sm-12 ContainerForm mb-4" style="padding: 2% 4%;">
+                                @Html.Action("FormStudent", "School")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal Asignaturas Estudiante-->
+    <div class="modal fade" id="ModalAsignaturasEstudiante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-body d-flex justify-content-center">
+                    <div class="col-sm-12" id="ContainerAsignaturas">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Js/AlumnoController.js"></script>
+</div>
+

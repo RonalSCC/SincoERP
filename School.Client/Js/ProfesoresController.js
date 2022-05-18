@@ -3,48 +3,6 @@
     AddPatternInputsText();
 });
 
-function AbrirModal() {
-    $('#ModalNewProfesor').modal('show');
-}
-
-function SendFormData() {
-    var dataForm = $('#FormNewProfesor').serializeObject();
-    if (dataForm) {
-        Begin();
-        $.ajax({
-            url: 'CrearProfesor',
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(dataForm),
-            success: function (obj) {
-                if (obj) {
-                    if (obj.TransaccionID == 1) {
-                        Complete();
-                        iziToast.success({
-                            title: 'Transacción exitosa',
-                            message: obj.Descripcion,
-                        });
-                        $('#ModalNewProfesor').modal('hide');
-                        ReloadGridProfesor();
-                    } else {
-                        Complete();
-                        iziToast.info({
-                            title: 'Sin procesar',
-                            message: obj.Descripcion,
-                        });
-                    }
-                } else {
-                    Complete();
-                    iziToast.info({
-                        title: 'Sin procesar',
-                        message: "Por favor contactar a soporte",
-                    });
-                }
-            }
-        });
-    }
-}
-
 function SendAsignaturaNew(ID) {
     var dataForm = $('#FormNewAsignatura').serializeObject();
     if (dataForm && ID) {
@@ -97,13 +55,13 @@ function Complete() {
 
 function RespuestaForm(obj) {
     if (obj) {
-        obj = JSON.parse(obj);
         if (obj.TransaccionID == 1) {
             iziToast.success({
                 title: 'Transacción exitosa',
                 message: obj.Descripcion,
             });
             $('#ModalNewProfesor').modal('hide');
+            ReloadGridProfesor();
         } else {
             iziToast.info({
                 title: 'Sin procesar',

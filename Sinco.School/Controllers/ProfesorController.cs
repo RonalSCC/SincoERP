@@ -172,10 +172,10 @@ namespace Sinco.School.Controllers
                     #endregion
 
                     if (!string.IsNullOrEmpty(data.Identificacion)) { objProfesorEdit.Identificacion = data.Identificacion; }
-                    if (!string.IsNullOrEmpty(data.Nombre)) { objProfesorEdit.Identificacion = data.Identificacion; }
-                    if (!string.IsNullOrEmpty(data.Apellido)) { objProfesorEdit.Identificacion = data.Identificacion; }
-                    if (!string.IsNullOrEmpty(data.Direccion)) { objProfesorEdit.Identificacion = data.Identificacion; }
-                    if (!string.IsNullOrEmpty(data.Telefono)) { objProfesorEdit.Identificacion = data.Identificacion; }
+                    if (!string.IsNullOrEmpty(data.Nombre)) { objProfesorEdit.Nombre = data.Nombre; }
+                    if (!string.IsNullOrEmpty(data.Apellido)) { objProfesorEdit.Apellido = data.Apellido; }
+                    if (!string.IsNullOrEmpty(data.Direccion)) { objProfesorEdit.Direccion = data.Direccion; }
+                    if (!string.IsNullOrEmpty(data.Telefono)) { objProfesorEdit.Telefono = data.Telefono; }
                     if (data.Edad != 0) { objProfesorEdit.Edad = data.Edad; }
                     objProfesorEdit.Activo = data.Activo;
 
@@ -371,6 +371,7 @@ namespace Sinco.School.Controllers
                     {
                         Retorno.TransaccionID = 0;
                         Retorno.Descripcion = "No se ha especificado información del profesor";
+                        goto outResponse;
                     }
 
                     var objProfesor = db.Profesor.FirstOrDefault(x => x.ProfesorID == data.ProfesorID);
@@ -378,6 +379,7 @@ namespace Sinco.School.Controllers
                     {
                         Retorno.TransaccionID = 0;
                         Retorno.Descripcion = "No se ha encontrado datos del profesor";
+                        goto outResponse;
                     }
                     #endregion
 

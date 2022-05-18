@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "FormNewProfesor";
+    Layout = null;
+}
+@using School.Client.Clases.Controllers;
+@model DataProfesor
+@*@using (Ajax.BeginForm("CrearProfesor", "School", null, new AjaxOptions { HttpMethod = "POST", OnFailure = "CreacionFallo", OnSuccess = "RespuestaForm", OnBegin = "Begin", OnComplete = "Complete", UpdateTargetId = "ContainerForm" }, new { id = $"FormNewProfesor", @class = "row", target = "_self" }))*@
+@* { *@
+<form id="FormNewProfesor" action="#" class="row g-3">
+    @Html.Hidden("ProfesorID", Model.ProfesorID)
+    <div class="col-md-4">
+        <label for="inputNombre" class="form-label">Nombre</label>
+        <input name="Nombre" type="text" class="form-control w-70" id="inputNombre" value="@Model.Nombre" required>
+    </div>
+    <div class="col-md-4">
+        <label for="inputApellido" class="form-label">Apellido</label>
+        <input name="Apellido" type="text" class="form-control w-70" id="inputApellido" value="@Model.Apellido" required>
+    </div>
+    <div class="col-md-4">
+        <label for="inputIdentificacion" class="form-label">Identificación</label>
+        <input name="Identificacion" type="number" class="form-control w-50" value="@Model.Identificacion" min="9999999" max="99999999999" id="inputIdentificacion" required>
+    </div>
+    <div class="col-md-4">
+        <label for="inputDireccion" class="form-label">Direccion</label>
+        <input name="Direccion" type="text" class="form-control" id="inputDireccion" value="@Model.Direccion" required>
+    </div>
+    <div class="col-md-4">
+        <label for="inputTelefono" class="form-label ">Telefono</label>
+        <input name="Telefono" type="text" class="form-control w-60" id="inputTelefono" value="@Model.Telefono" required>
+    </div>
+    <div class="col-md-2">
+        <label for="inputEdad" class="form-label">Edad</label>
+        <input name="Edad" type="tel" class="form-control w-30" id="inputEdad" max="100" value="@Model.Edad" required>
+    </div>
+    <div class="col-md-2">
+        <label for="inputEdad" class="form-label">Activo</label>
+        <div class="form-check form-switch">
+            <input name="Activo" value="true" class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" value="@Model.Activo" @(Model.Activo == true ? "checked" : "")>
+        </div>
+    </div>
+    <div class="col-sm-12 p-0 d-flex justify-content-end">
+        <button class="btn btnModal btnModalSave" type="button" onclick="SendFormData()">
+            <i class="IconsButtons fa-solid fa-floppy-disk"></i>
+            Guardar
+        </button>
+        <button class="btn btnModal btnModalCancel" type="button" data-bs-dismiss="modal">
+            <i class="IconsButtons fa-solid fa-ban"></i>
+            Cancelar
+        </button>
+    </div>
+    @*}*@
+</form>
+

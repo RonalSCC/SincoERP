@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "_GridProfesores";
+    Layout = null;
+}
+
+@using School.Client.Clases.Controllers;
+@model ProfesoresOut
+<script>
+    function EditProfesor(id) {
+        if (id) {
+            $('#ContainerForm').load('@Url.Action("FormNewProfesor", "School")?IDProfesor=' + id);
+            AbrirModal();
+        }
+    }
+
+    function VerAsignaturasProfesor(id) {
+        if (id) {
+            $('#ContainerAsignaturas').load('@Url.Action("AsignarMateriasProfesor", "School")?IDProfesor=' + id);
+            $('#ModalAsignaturasProfesor').modal('show');
+        }
+    }
+</script>
+<table id="TableProfesores" class="table table-hover table-striped table-bordered" >
+    <thead class="theadSinco">
+        <tr>
+            <th class="thTable" scope="col">Options</th>
+            <th class="thTable" scope="col">Nombre</th>
+            <th class="thTable" scope="col">Apellido</th>
+            <th class="thTable" scope="col">Identificacion</th>
+            <th class="thTable" scope="col">Edad</th>
+            <th class="thTable" scope="col">Dirección</th>
+            <th class="thTable" scope="col">Telefono</th>
+            <th class="thTable" scope="col">Activo</th>
+        </tr>
+    </thead>
+    <tbody class="tbodyProfesor">
+
+        @if (Model.ListProfesores != null && Model.ListProfesores?.Count > 0)
+        {
+            foreach (var prof in Model.ListProfesores)
+            {
+                <tr>
+                    <td class="text-center">
+                        <i class="fa-solid fa-user-check IconEdit" onclick="VerAsignaturasProfesor(@prof.ProfesorID)" style="margin-right:10%;" data-bs-toggle="tooltip" data-bs-placement="top" title="Asignar materias"></i>
+                        <i class="fa-duotone fa-pencil IconEdit" onclick="EditProfesor(@prof.ProfesorID)" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i>
+                    </td>
+                    <td>@prof.Nombre</td>
+                    <td>@prof.Apellido</td>
+                    <td>@prof.Identificacion</td>
+                    <td class="text-center">@prof.Edad</td>
+                    <td>@prof.Direccion</td>
+                    <td>@prof.Telefono</td>
+                    @if (prof.Activo == true)
+                    {
+                        <td class="text-center"><i class="fa-solid fa-check IconCheckOn"></i></td>
+                    }
+                    else
+                    {
+                        <td class="text-center"><i class="fa-solid fa-check IconCheckOff"></i></td>
+                    }
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

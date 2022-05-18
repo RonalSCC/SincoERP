@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Inicio";
 }
-
+@using System.Configuration;
 <style>
     .ContainerContent {
         background: linear-gradient(90deg, white, white, white, rgba(255,255,255,.7));
@@ -130,7 +130,13 @@
         text-shadow: 0px 0px 4px rgba(0,0,0,.8);
     }
 </style>
-
+<script>
+    function RedirectOption(url) {
+        if (url) {
+            window.location.href = url;
+        }
+    }
+</script>
 <div class="col-sm-12 h-100 p-5">
     <div class="col-sm-12 flex-wrap h-100 d-flex align-items-center">
         <div class="col-sm-12">
@@ -154,23 +160,23 @@
             @* --------------------------- Options Administracion --------------------------------- *@
             @* ------------------------------------------------------------------------------------ *@
             <div class="col-sm-12">
-                <div class="col-sm-12 d-flex justify-content-center mb-5">
+                <div class="col-sm-12 d-flex justify-content-center mb-5"">
                     <h2 class="txtAdminSections">Administración</h2>
                 </div>
                 <div class="col-sm-12 d-flex justify-content-center">
-                    <div class="col-sm-auto CirclesOptions Teacher">
+                    <div class="col-sm-auto CirclesOptions Teacher" onclick="RedirectOption('@(ConfigurationManager.AppSettings["URLClient"])School/Profesores')">
                         <p class="txtCircles">Profesores</p>
                     </div>
 
-                    <div class="col-sm-auto CirclesOptions Student">
+                    <div class="col-sm-auto CirclesOptions Student" onclick="RedirectOption('@(ConfigurationManager.AppSettings["URLClient"])School/Estudiantes')">
                         <p class="txtCircles">Estudiantes</p>
                     </div>
 
-                    <div class="col-sm-auto CirclesOptions Materia">
+                    <div class="col-sm-auto CirclesOptions Materia" onclick="RedirectOption('@(ConfigurationManager.AppSettings["URLClient"])School/Asignaturas')">
                         <p class="txtCircles">Asignaturas</p>
                     </div>
 
-                    <div class="col-sm-auto CirclesOptions Reportes" style="margin-right:0px;">
+                    <div class="col-sm-auto CirclesOptions Reportes" onclick="RedirectOption('@(ConfigurationManager.AppSettings["URLClient"])School/Reportes')" style="margin-right:0px;">
                         <p class="txtCircles">Reportes</p>
                     </div>
                 </div>

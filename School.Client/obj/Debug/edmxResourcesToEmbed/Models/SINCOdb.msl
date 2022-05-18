@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SincoERPModelStoreContainer" CdmEntityContainer="SincoERPEntities">
+    <EntitySetMapping Name="Alumno">
+      <EntityTypeMapping TypeName="SincoERPModel.Alumno">
+        <MappingFragment StoreEntitySet="Alumno">
+          <ScalarProperty Name="AlumnoID" ColumnName="AlumnoID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="Edad" ColumnName="Edad" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlumnoAsignatura">
+      <EntityTypeMapping TypeName="SincoERPModel.AlumnoAsignatura">
+        <MappingFragment StoreEntitySet="AlumnoAsignatura">
+          <ScalarProperty Name="AlumnoAsignaturaID" ColumnName="AlumnoAsignaturaID" />
+          <ScalarProperty Name="AlumnoID" ColumnName="AlumnoID" />
+          <ScalarProperty Name="AsignaturaID" ColumnName="AsignaturaID" />
+          <ScalarProperty Name="AnioAcademico" ColumnName="AnioAcademico" />
+          <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AnioAcademico">
+      <EntityTypeMapping TypeName="SincoERPModel.AnioAcademico">
+        <MappingFragment StoreEntitySet="AnioAcademico">
+          <ScalarProperty Name="AnioAcademicoID" ColumnName="AnioAcademicoID" />
+          <ScalarProperty Name="Anio" ColumnName="Anio" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Asignatura">
+      <EntityTypeMapping TypeName="SincoERPModel.Asignatura">
+        <MappingFragment StoreEntitySet="Asignatura">
+          <ScalarProperty Name="AsignaturaID" ColumnName="AsignaturaID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profesor">
+      <EntityTypeMapping TypeName="SincoERPModel.Profesor">
+        <MappingFragment StoreEntitySet="Profesor">
+          <ScalarProperty Name="ProfesorID" ColumnName="ProfesorID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="Edad" ColumnName="Edad" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProfesorAsignatura">
+      <EntityTypeMapping TypeName="SincoERPModel.ProfesorAsignatura">
+        <MappingFragment StoreEntitySet="ProfesorAsignatura">
+          <ScalarProperty Name="ProfesorAsignaturaID" ColumnName="ProfesorAsignaturaID" />
+          <ScalarProperty Name="ProfesorID" ColumnName="ProfesorID" />
+          <ScalarProperty Name="AsignaturaID" ColumnName="AsignaturaID" />
+          <ScalarProperty Name="AnioAcademicoID" ColumnName="AnioAcademicoID" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vista_AsignaturasProfesor">
+      <EntityTypeMapping TypeName="SincoERPModel.Vista_AsignaturasProfesor">
+        <MappingFragment StoreEntitySet="Vista_AsignaturasProfesor">
+          <ScalarProperty Name="ProfesorAsignaturaID" ColumnName="ProfesorAsignaturaID" />
+          <ScalarProperty Name="ProfesorID" ColumnName="ProfesorID" />
+          <ScalarProperty Name="NombreProfesor" ColumnName="NombreProfesor" />
+          <ScalarProperty Name="ApellidoProfesor" ColumnName="ApellidoProfesor" />
+          <ScalarProperty Name="IdentificacionProfesor" ColumnName="IdentificacionProfesor" />
+          <ScalarProperty Name="EdadProfesor" ColumnName="EdadProfesor" />
+          <ScalarProperty Name="AsignaturaID" ColumnName="AsignaturaID" />
+          <ScalarProperty Name="NombreAsignatura" ColumnName="NombreAsignatura" />
+          <ScalarProperty Name="CodigoAsignatura" ColumnName="CodigoAsignatura" />
+          <ScalarProperty Name="AnioAcademicoID" ColumnName="AnioAcademicoID" />
+          <ScalarProperty Name="AnioAcademico" ColumnName="AnioAcademico" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vista_CalificacionAlumno">
+      <EntityTypeMapping TypeName="SincoERPModel.Vista_CalificacionAlumno">
+        <MappingFragment StoreEntitySet="Vista_CalificacionAlumno">
+          <ScalarProperty Name="AlumnoAsignaturaID" ColumnName="AlumnoAsignaturaID" />
+          <ScalarProperty Name="AlumnoID" ColumnName="AlumnoID" />
+          <ScalarProperty Name="NombreAlumno" ColumnName="NombreAlumno" />
+          <ScalarProperty Name="ApellidoAlumno" ColumnName="ApellidoAlumno" />
+          <ScalarProperty Name="IdentificacionAlumno" ColumnName="IdentificacionAlumno" />
+          <ScalarProperty Name="EdadAlumno" ColumnName="EdadAlumno" />
+          <ScalarProperty Name="AsignaturaID" ColumnName="AsignaturaID" />
+          <ScalarProperty Name="Asignatura" ColumnName="Asignatura" />
+          <ScalarProperty Name="CodigoAsignatura" ColumnName="CodigoAsignatura" />
+          <ScalarProperty Name="AnioAcademico" ColumnName="AnioAcademico" />
+          <ScalarProperty Name="Anio" ColumnName="Anio" />
+          <ScalarProperty Name="ProfesorID" ColumnName="ProfesorID" />
+          <ScalarProperty Name="IdentificacionProfesor" ColumnName="IdentificacionProfesor" />
+          <ScalarProperty Name="NombreProfesor" ColumnName="NombreProfesor" />
+          <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+          <ScalarProperty Name="Aprobo" ColumnName="Aprobo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

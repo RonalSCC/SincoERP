@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SincoERPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Alumno">
+    <Key>
+      <PropertyRef Name="AlumnoID" />
+    </Key>
+    <Property Name="AlumnoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Identificacion" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Edad" Type="int" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Telefono" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AlumnoAsignatura">
+    <Key>
+      <PropertyRef Name="AlumnoAsignaturaID" />
+    </Key>
+    <Property Name="AlumnoAsignaturaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AlumnoID" Type="int" Nullable="false" />
+    <Property Name="AsignaturaID" Type="int" Nullable="false" />
+    <Property Name="AnioAcademico" Type="int" Nullable="false" />
+    <Property Name="Calificacion" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AnioAcademico">
+    <Key>
+      <PropertyRef Name="AnioAcademicoID" />
+    </Key>
+    <Property Name="AnioAcademicoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Anio" Type="int" />
+    <Property Name="Activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Asignatura">
+    <Key>
+      <PropertyRef Name="AsignaturaID" />
+    </Key>
+    <Property Name="AsignaturaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="500" />
+    <Property Name="Codigo" Type="int" Nullable="false" />
+    <Property Name="Activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Profesor">
+    <Key>
+      <PropertyRef Name="ProfesorID" />
+    </Key>
+    <Property Name="ProfesorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Identificacion" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Edad" Type="int" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Telefono" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProfesorAsignatura">
+    <Key>
+      <PropertyRef Name="ProfesorAsignaturaID" />
+    </Key>
+    <Property Name="ProfesorAsignaturaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProfesorID" Type="int" Nullable="false" />
+    <Property Name="AsignaturaID" Type="int" Nullable="false" />
+    <Property Name="AnioAcademicoID" Type="int" Nullable="false" />
+    <Property Name="Activo" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SincoERP.SCH.Vista_AsignaturasProfesor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vista_AsignaturasProfesor">
+    <Key>
+      <PropertyRef Name="ProfesorAsignaturaID" />
+      <PropertyRef Name="ProfesorID" />
+      <PropertyRef Name="AsignaturaID" />
+      <PropertyRef Name="AnioAcademicoID" />
+    </Key>
+    <Property Name="ProfesorAsignaturaID" Type="int" Nullable="false" />
+    <Property Name="ProfesorID" Type="int" Nullable="false" />
+    <Property Name="NombreProfesor" Type="varchar" MaxLength="500" />
+    <Property Name="ApellidoProfesor" Type="varchar" MaxLength="500" />
+    <Property Name="IdentificacionProfesor" Type="varchar" MaxLength="15" />
+    <Property Name="EdadProfesor" Type="int" />
+    <Property Name="AsignaturaID" Type="int" Nullable="false" />
+    <Property Name="NombreAsignatura" Type="varchar" MaxLength="500" />
+    <Property Name="CodigoAsignatura" Type="int" />
+    <Property Name="AnioAcademicoID" Type="int" Nullable="false" />
+    <Property Name="AnioAcademico" Type="int" />
+    <Property Name="Activo" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SincoERP.SCH.Vista_CalificacionAlumno' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vista_CalificacionAlumno">
+    <Key>
+      <PropertyRef Name="AlumnoAsignaturaID" />
+      <PropertyRef Name="AlumnoID" />
+      <PropertyRef Name="AsignaturaID" />
+      <PropertyRef Name="AnioAcademico" />
+      <PropertyRef Name="Calificacion" />
+      <PropertyRef Name="Aprobo" />
+    </Key>
+    <Property Name="AlumnoAsignaturaID" Type="int" Nullable="false" />
+    <Property Name="AlumnoID" Type="int" Nullable="false" />
+    <Property Name="NombreAlumno" Type="varchar" MaxLength="500" />
+    <Property Name="ApellidoAlumno" Type="varchar" MaxLength="500" />
+    <Property Name="IdentificacionAlumno" Type="varchar" MaxLength="15" />
+    <Property Name="EdadAlumno" Type="int" />
+    <Property Name="AsignaturaID" Type="int" Nullable="false" />
+    <Property Name="Asignatura" Type="varchar" MaxLength="500" />
+    <Property Name="CodigoAsignatura" Type="int" />
+    <Property Name="AnioAcademico" Type="int" Nullable="false" />
+    <Property Name="Anio" Type="int" />
+    <Property Name="ProfesorID" Type="int" />
+    <Property Name="IdentificacionProfesor" Type="varchar" MaxLength="15" />
+    <Property Name="NombreProfesor" Type="varchar" MaxLength="500" />
+    <Property Name="Calificacion" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Aprobo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="SincoERPModelStoreContainer">
+    <EntitySet Name="Alumno" EntityType="Self.Alumno" Schema="SCH" store:Type="Tables" />
+    <EntitySet Name="AlumnoAsignatura" EntityType="Self.AlumnoAsignatura" Schema="SCH" store:Type="Tables" />
+    <EntitySet Name="AnioAcademico" EntityType="Self.AnioAcademico" Schema="SCH" store:Type="Tables" />
+    <EntitySet Name="Asignatura" EntityType="Self.Asignatura" Schema="SCH" store:Type="Tables" />
+    <EntitySet Name="Profesor" EntityType="Self.Profesor" Schema="SCH" store:Type="Tables" />
+    <EntitySet Name="ProfesorAsignatura" EntityType="Self.ProfesorAsignatura" Schema="SCH" store:Type="Tables" />
+    <EntitySet Name="Vista_AsignaturasProfesor" EntityType="Self.Vista_AsignaturasProfesor" store:Type="Views" store:Schema="SCH">
+      <DefiningQuery>SELECT 
+    [Vista_AsignaturasProfesor].[ProfesorAsignaturaID] AS [ProfesorAsignaturaID], 
+    [Vista_AsignaturasProfesor].[ProfesorID] AS [ProfesorID], 
+    [Vista_AsignaturasProfesor].[NombreProfesor] AS [NombreProfesor], 
+    [Vista_AsignaturasProfesor].[ApellidoProfesor] AS [ApellidoProfesor], 
+    [Vista_AsignaturasProfesor].[IdentificacionProfesor] AS [IdentificacionProfesor], 
+    [Vista_AsignaturasProfesor].[EdadProfesor] AS [EdadProfesor], 
+    [Vista_AsignaturasProfesor].[AsignaturaID] AS [AsignaturaID], 
+    [Vista_AsignaturasProfesor].[NombreAsignatura] AS [NombreAsignatura], 
+    [Vista_AsignaturasProfesor].[CodigoAsignatura] AS [CodigoAsignatura], 
+    [Vista_AsignaturasProfesor].[AnioAcademicoID] AS [AnioAcademicoID], 
+    [Vista_AsignaturasProfesor].[AnioAcademico] AS [AnioAcademico], 
+    [Vista_AsignaturasProfesor].[Activo] AS [Activo]
+    FROM [SCH].[Vista_AsignaturasProfesor] AS [Vista_AsignaturasProfesor]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vista_CalificacionAlumno" EntityType="Self.Vista_CalificacionAlumno" store:Type="Views" store:Schema="SCH">
+      <DefiningQuery>SELECT 
+    [Vista_CalificacionAlumno].[AlumnoAsignaturaID] AS [AlumnoAsignaturaID], 
+    [Vista_CalificacionAlumno].[AlumnoID] AS [AlumnoID], 
+    [Vista_CalificacionAlumno].[NombreAlumno] AS [NombreAlumno], 
+    [Vista_CalificacionAlumno].[ApellidoAlumno] AS [ApellidoAlumno], 
+    [Vista_CalificacionAlumno].[IdentificacionAlumno] AS [IdentificacionAlumno], 
+    [Vista_CalificacionAlumno].[EdadAlumno] AS [EdadAlumno], 
+    [Vista_CalificacionAlumno].[AsignaturaID] AS [AsignaturaID], 
+    [Vista_CalificacionAlumno].[Asignatura] AS [Asignatura], 
+    [Vista_CalificacionAlumno].[CodigoAsignatura] AS [CodigoAsignatura], 
+    [Vista_CalificacionAlumno].[AnioAcademico] AS [AnioAcademico], 
+    [Vista_CalificacionAlumno].[Anio] AS [Anio], 
+    [Vista_CalificacionAlumno].[ProfesorID] AS [ProfesorID], 
+    [Vista_CalificacionAlumno].[IdentificacionProfesor] AS [IdentificacionProfesor], 
+    [Vista_CalificacionAlumno].[NombreProfesor] AS [NombreProfesor], 
+    [Vista_CalificacionAlumno].[Calificacion] AS [Calificacion], 
+    [Vista_CalificacionAlumno].[Aprobo] AS [Aprobo]
+    FROM [SCH].[Vista_CalificacionAlumno] AS [Vista_CalificacionAlumno]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

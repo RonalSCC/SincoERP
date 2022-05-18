@@ -1,44 +1,121 @@
 ﻿$(document).ready(function () {
     $('#TableProfesores').DataTable();
     AddPatternInputsText();
-    CargarDatosProfesores();
 });
-
-function CargarDatosProfesores() {
-    $.ajax({
-        url: 'Comunications/ConsultarProfesores',
-        type: "POST",
-        data: {},
-        success: function (data) {
-            if (data) {
-                if (data.TransaccionID == 1) {
-                    iziToast.success({
-                        title: 'Transacción exitosa',
-                        message: 'Se ha guardado la información del análisis',
-                    });
-                } else if (data.TransaccionID == 0 && !data.SessionNotFound) {
-                    iziToast.warning({
-                        title: 'Sin procesar',
-                        message: data.Descripcion,
-                    });
-                } else if (data.TransaccionID == 0 && data.SessionNotFound == true) {
-                    iziToast.warning({
-                        title: 'Sin datos de sesión',
-                        message: "Por favor recargue la pantalla y entre nuevamente",
-                    });
-                }
-            }
-            $("#loadPanel").dxLoadPanel("instance").hide();
-        }
-    });
-}
 
 function AbrirModal() {
     $('#ModalNewProfesor').modal('show');
 }
 
-function SendFormProfesor() {
+function SendFormData() {
+    var dataForm = $('#FormNewProfesor').serializeObject();
+    if (dataForm) {
+        Begin();
+        $.ajax({
+            url: 'CrearProfesor',
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(dataForm),
+            success: function (obj) {
+                if (obj) {
+                    if (obj.TransaccionID == 1) {
+                        Complete();
+                        iziToast.success({
+                            title: 'Transacción exitosa',
+                            message: obj.Descripcion,
+                        });
+                        $('#ModalNewProfesor').modal('hide');
+                        ReloadGridProfesor();
+                    } else {
+                        Complete();
+                        iziToast.info({
+                            title: 'Sin procesar',
+                            message: obj.Descripcion,
+                        });
+                    }
+                } else {
+                    Complete();
+                    iziToast.info({
+                        title: 'Sin procesar',
+                        message: "Por favor contactar a soporte",
+                    });
+                }
+            }
+        });
+    }
+}
 
+function SendAsignaturaNew(ID) {
+    var dataForm = $('#FormNewAsignatura').serializeObject();
+    if (dataForm && ID) {
+        if (dataForm.AsignaturaID && dataForm.AnioAcademicoID) {
+            dataForm.Activo = true;
+            dataForm.ProfesorID = ID;
+            Begin();
+            $.ajax({
+                url: 'CrearAsignaturaProfesor',
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(dataForm),
+                success: function (obj) {
+                    if (obj) {
+                        if (obj.TransaccionID == 1) {
+                            Complete();
+                            iziToast.success({
+                                title: 'Transacción exitosa',
+                                message: obj.Descripcion,
+                            });
+                            $('#ModalNewProfesor').modal('hide');
+                            VerAsignaturasProfesor(ID);
+                        } else {
+                            Complete();
+                            iziToast.info({
+                                title: 'Sin procesar',
+                                message: obj.Descripcion,
+                            });
+                        }
+                    } else {
+                        Complete();
+                        iziToast.info({
+                            title: 'Sin procesar',
+                            message: "Por favor contactar a soporte",
+                        });
+                    }
+                }
+            });
+        }
+    }
+}
+
+function Begin() {
+    ShowLoader();
+}
+
+function Complete() {
+    HideLoader();
+}
+
+function RespuestaForm(obj) {
+    if (obj) {
+        obj = JSON.parse(obj);
+        if (obj.TransaccionID == 1) {
+            iziToast.success({
+                title: 'Transacción exitosa',
+                message: obj.Descripcion,
+            });
+            $('#ModalNewProfesor').modal('hide');
+        } else {
+            iziToast.info({
+                title: 'Sin procesar',
+                message: obj.Descripcion,
+            });
+        }
+    } else {
+        iziToast.info({
+            title: 'Sin procesar',
+            message: "Por favor contactar a soporte",
+        });
+    }
 }
 
 function AddPatternInputsText() {
@@ -48,4 +125,6 @@ function AddPatternInputsText() {
     $('#inputTelefono').attr('pattern', '[0-9\s]+');
     $('#inputEdad').attr('pattern', '[0-9\s]+');
 }
+
+
 

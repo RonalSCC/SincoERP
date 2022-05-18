@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Configuration;
+<!DOCTYPE html>
 <html class="h-100">
 <head>
     <meta charset="utf-8" />
@@ -9,11 +10,13 @@
     <link rel="stylesheet" href="~/Frameworks/DataTables/datatables.min.css" />
     <link rel="stylesheet" href="~/css/EstilosIncompletosBootstrapVol1.css" />
     <link rel="stylesheet" href="~/Frameworks/IziToast/dist/css/iziToast.min.css" />
-
+    <link rel="stylesheet" href="~/Frameworks/NewFontAwesome/css/all.css" />
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/ff232a0db0.js" crossorigin="anonymous"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Frameworks/NewFontAwesome/js/all.min.js"></script>
     <script src="~/Frameworks/DataTables/datatables.min.js"></script>
     <script src="~/Frameworks/jquery.SerializeObject.js"></script>
     <script src="~/Frameworks/IziToast/dist/js/iziToast.min.js"></script>
@@ -72,6 +75,7 @@
                 font-weight: 500;
                 transition: ease .1s all;
                 cursor: pointer;
+                text-decoration:none;
             }
 
                 .ContainerOptionMenu a:hover {
@@ -82,12 +86,55 @@
             .ContainerOptionMenu i {
                 /*padding-right: 2%;*/
             }
+
+        #ContainerLoader {
+            z-index: 2000;
+            height: 1px;
+            visibility: hidden;
+            transition: all .5s ease;
+            top: 50%;
+            opacity: 0;
+            background: linear-gradient(90deg, white, var(--colorBase));
+        }
+
+        .ShowLoader {
+            top: 0% !important;
+            opacity: 1 !important;
+            height: 100% !important;
+            visibility: visible !important;
+        }
+
+        #CircleLoader {
+            border-right: 2px solid white;
+            border-bottom: 4px solid white;
+            border-left: 3px solid white;
+            height: 20rem;
+            width: 20rem;
+            border-radius: 100%;
+            position: absolute;
+            animation: Rotate 1s infinite;
+        }
+
+        @@keyframes Rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
+    <script>
+        $(document).ready(function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        });
+        
+    </script>
 </head>
 <body id="Body" class="h-100">
     <div class="container-fluid h-100 p-0">
         <div id="Header" class="col-sm-12 d-flex">
-            <div class="col-sm-2 d-flex flex-wrap justify-content-center position-relative" style="visibility:hidden;">
+            <div class="col-sm-2 d-flex flex-wrap justify-content-center position-relative" >
                 <i style="font-size: 3rem; color: #0094F2; " class="fa-solid fa-heart"></i>
                 <i style="font-size: 1.5rem; color: #3b4c39; position: absolute; bottom: 55%; right: 38%;" class="fa-solid fa-heart"></i>
                 <div class="col-sm-12">
@@ -102,16 +149,19 @@
             <div class="col-sm-7 d-flex align-items-center ">
                 <div class="col-sm-12 d-flex justify-content-end">
                     <div class="col-sm-auto ContainerOptionMenu">
-                        <a> <i class="fa-solid fa-rocket"></i> Profesores</a>
+                        <a href="@(ConfigurationManager.AppSettings["URLClient"])School/Inicio"> <i class="fa-duotone fa-house"></i> Inicio</a>
                     </div>
                     <div class="col-sm-auto ContainerOptionMenu">
-                        <a> <i class="fa-solid fa-rocket"></i> Estudiantes</a>
+                        <a href="@(ConfigurationManager.AppSettings["URLClient"])School/Profesores"> <i class="fa-duotone fa-chalkboard-user"></i> Profesores</a>
                     </div>
                     <div class="col-sm-auto ContainerOptionMenu">
-                        <a> <i class="fa-solid fa-rocket"></i> Asignaturas</a>
+                        <a href="@(ConfigurationManager.AppSettings["URLClient"])School/Estudiantes"> <i class="fa-duotone fa-graduation-cap"></i> Estudiantes</a>
                     </div>
                     <div class="col-sm-auto ContainerOptionMenu">
-                        <a> <i class="fa-solid fa-rocket"></i> Reportes</a>
+                        <a href="@(ConfigurationManager.AppSettings["URLClient"])School/Asignaturas"> <i class="fa-duotone fa-book"></i> Asignaturas</a>
+                    </div>
+                    <div class="col-sm-auto ContainerOptionMenu">
+                        <a href="@(ConfigurationManager.AppSettings["URLClient"])School/Reportes"> <i class="fa-duotone fa-file-chart-column"></i> Reportes</a>
                     </div>
                 </div>
             </div>
@@ -121,6 +171,23 @@
         </div>
     </div>
 
+    <div id="ContainerLoader" class="col-sm-12 d-flex align-items-center position-fixed" >
+        <div class="col-sm-12 h-100 d-flex justify-content-center align-items-center position-relative">
+            <div id="CircleLoader" class="col-sm-4 d-flex justify-content-center align-items-center">
+            </div>
+            <img src="~/Images/Logo2.png" class="img-fluid" style="width: 15rem;" />
 
+        </div>
+    </div>
+
+    <script>
+        function ShowLoader() {
+            $('#ContainerLoader').addClass('ShowLoader');
+        }
+
+        function HideLoader() {
+            $('#ContainerLoader').removeClass('ShowLoader');
+        }
+    </script>
 </body>
 </html>

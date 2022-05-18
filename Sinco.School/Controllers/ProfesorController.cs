@@ -73,7 +73,9 @@ namespace Sinco.School.Controllers
             string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
             try
             {
-                using (SINCOdbContext db = new SINCOdbContext()) {
+                DbContextOptions<SINCOdbContext> SIESdbOptions = ConnectionSettings.SINCOdb(connectiondb);
+                using (SINCOdbContext db = new SINCOdbContext(SIESdbOptions))
+                {
 
                     #region Validaciones
                     if (data == null)
@@ -140,7 +142,8 @@ namespace Sinco.School.Controllers
             string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
             try
             {
-                using (SINCOdbContext db = new SINCOdbContext())
+                DbContextOptions<SINCOdbContext> SIESdbOptions = ConnectionSettings.SINCOdb(connectiondb);
+                using (SINCOdbContext db = new SINCOdbContext(SIESdbOptions))
                 {
 
                     #region Validaciones
@@ -158,14 +161,22 @@ namespace Sinco.School.Controllers
                         Retorno.Descripcion = "No se ha encontrado información del profesor a actualizar";
                         goto outResponse;
                     }
+
+                    var existsWithDocumento = db.Profesor.FirstOrDefault(x => x.Identificacion.Equals(data.Identificacion) && x.ProfesorID != objProfesorEdit.ProfesorID);
+                    if (existsWithDocumento != null)
+                    {
+                        Retorno.TransaccionID = 0;
+                        Retorno.Descripcion = "Ya existe un profesor con este número de documento";
+                        goto outResponse;
+                    }
                     #endregion
 
-                    if (!string.IsNullOrEmpty(data.Identificacion)){ objProfesorEdit.Identificacion = data.Identificacion; }
-                    if (!string.IsNullOrEmpty(data.Nombre)){ objProfesorEdit.Identificacion = data.Identificacion; }
-                    if (!string.IsNullOrEmpty(data.Apellido)){ objProfesorEdit.Identificacion = data.Identificacion; }
-                    if (!string.IsNullOrEmpty(data.Direccion)){ objProfesorEdit.Identificacion = data.Identificacion; }
-                    if (!string.IsNullOrEmpty(data.Telefono)){ objProfesorEdit.Identificacion = data.Identificacion; }
-                    if (data.Edad != 0){ objProfesorEdit.Edad = data.Edad; }
+                    if (!string.IsNullOrEmpty(data.Identificacion)) { objProfesorEdit.Identificacion = data.Identificacion; }
+                    if (!string.IsNullOrEmpty(data.Nombre)) { objProfesorEdit.Identificacion = data.Identificacion; }
+                    if (!string.IsNullOrEmpty(data.Apellido)) { objProfesorEdit.Identificacion = data.Identificacion; }
+                    if (!string.IsNullOrEmpty(data.Direccion)) { objProfesorEdit.Identificacion = data.Identificacion; }
+                    if (!string.IsNullOrEmpty(data.Telefono)) { objProfesorEdit.Identificacion = data.Identificacion; }
+                    if (data.Edad != 0) { objProfesorEdit.Edad = data.Edad; }
                     objProfesorEdit.Activo = data.Activo;
 
                     db.SaveChanges();
@@ -204,7 +215,8 @@ namespace Sinco.School.Controllers
             string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
             try
             {
-                using (SINCOdbContext db = new SINCOdbContext())
+                DbContextOptions<SINCOdbContext> SIESdbOptions = ConnectionSettings.SINCOdb(connectiondb);
+                using (SINCOdbContext db = new SINCOdbContext(SIESdbOptions))
                 {
 
                     #region Validaciones
@@ -240,7 +252,8 @@ namespace Sinco.School.Controllers
                     }
 
                     var validateAsignaturaAsignada = db.ProfesorAsignatura.FirstOrDefault(x => x.AsignaturaID == data.AsignaturaID && x.AnioAcademicoID == data.AnioAcademicoID && x.Activo == true);
-                    if (validateAsignaturaAsignada != null) {
+                    if (validateAsignaturaAsignada != null)
+                    {
                         Retorno.TransaccionID = 0;
                         Retorno.Descripcion = "La asignatura ya se encuentra asignada a otro profesor";
                         goto outResponse;
@@ -338,6 +351,73 @@ namespace Sinco.School.Controllers
                     DetalleTransaccion = "Ha ocurrido un error en la ejecución del servicio",
                     Error = true
                 });
+                return BadRequest(Retorno.ToJson());
+            }
+        }
+
+        [HttpPost("ConsultarMateriasProfesor")]
+        [HttpGet("ConsultarMateriasProfesor")]
+        public ActionResult ConsultarMateriasProfesor(ConsultarMateriasProfesorIn data)
+        {
+            RetornoConsultarMateriasProfesor Retorno = new RetornoConsultarMateriasProfesor();
+            string nomapi = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            try
+            {
+                DbContextOptions<SINCOdbContext> SIESdbOptions = ConnectionSettings.SINCOdb(connectiondb);
+                using (SINCOdbContext db = new SINCOdbContext(SIESdbOptions))
+                {
+                    #region Validaciones
+                    if (data == null)
+                    {
+                        Retorno.TransaccionID = 0;
+                        Retorno.Descripcion = "No se ha especificado información del profesor";
+                    }
+
+                    var objProfesor = db.Profesor.FirstOrDefault(x => x.ProfesorID == data.ProfesorID);
+                    if (objProfesor == null)
+                    {
+                        Retorno.TransaccionID = 0;
+                        Retorno.Descripcion = "No se ha encontrado datos del profesor";
+                    }
+                    #endregion
+
+
+                    var IDsAsignados = new List<int>();
+                    var ListAsignaturasAsignadas = db.Vista_AsignaturasProfesor.Where(x => x.ProfesorID == data.ProfesorID && x.Activo == true).ToList();
+                    if (ListAsignaturasAsignadas != null && ListAsignaturasAsignadas.Count > 0)
+                    {
+                        Retorno.AsignaturasAsignadas = ListAsignaturasAsignadas;
+                        IDsAsignados = ListAsignaturasAsignadas.Select(y => y.AsignaturaID).ToList();
+                    }
+
+                    var ListAsignaturasDisponibles = db.Asignatura.Where(x => !IDsAsignados.Contains(x.AsignaturaID) && x.Activo == true).ToList();
+                    if (ListAsignaturasDisponibles != null)
+                    {
+                        Retorno.AsignaturasDisponibles = ListAsignaturasDisponibles;
+                    }
+                    db.SaveChanges();
+
+                    Retorno.TransaccionID = 1;
+                    Retorno.Descripcion = "Transacción exitosa";
+                }
+
+            outResponse:
+                return Ok(Retorno.ToJson());
+
+            }
+            catch (Exception ex)
+            {
+                Retorno.TransaccionID = 0;
+                Retorno.Descripcion = "Ha ocurrido un error en la ejecución del servicio";
+                Complement.SaveLog(new LogWebApi
+                {
+                    API = nomapi,
+                    JsonEntrada = null,
+                    JsonSalida = ex.ToJson(),
+                    FechaRegistro = DateTime.Now,
+                    DetalleTransaccion = "Ha ocurrido un error en la ejecución del servicio",
+                    Error = true
+                }, connectionLogs);
                 return BadRequest(Retorno.ToJson());
             }
         }

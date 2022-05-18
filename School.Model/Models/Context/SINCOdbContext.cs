@@ -23,6 +23,7 @@ namespace School.Model.Models.Context
         public virtual DbSet<Asignatura> Asignatura { get; set; } = null!;
         public virtual DbSet<Profesor> Profesor { get; set; } = null!;
         public virtual DbSet<ProfesorAsignatura> ProfesorAsignatura { get; set; } = null!;
+        public virtual DbSet<Vista_AsignaturasProfesor> Vista_AsignaturasProfesor { get; set; } = null!;
         public virtual DbSet<Vista_CalificacionAlumno> Vista_CalificacionAlumno { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -101,6 +102,29 @@ namespace School.Model.Models.Context
             modelBuilder.Entity<ProfesorAsignatura>(entity =>
             {
                 entity.ToTable("ProfesorAsignatura", "SCH");
+            });
+
+            modelBuilder.Entity<Vista_AsignaturasProfesor>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Vista_AsignaturasProfesor", "SCH");
+
+                entity.Property(e => e.ApellidoProfesor)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdentificacionProfesor)
+                    .HasMaxLength(15)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreAsignatura)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreProfesor)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Vista_CalificacionAlumno>(entity =>

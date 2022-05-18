@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SincoERPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Alumno">
+    <Key>
+      <PropertyRef Name="AlumnoID" />
+    </Key>
+    <Property Name="AlumnoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Identificacion" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Edad" Type="Int32" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AlumnoAsignatura">
+    <Key>
+      <PropertyRef Name="AlumnoAsignaturaID" />
+    </Key>
+    <Property Name="AlumnoAsignaturaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AlumnoID" Type="Int32" Nullable="false" />
+    <Property Name="AsignaturaID" Type="Int32" Nullable="false" />
+    <Property Name="AnioAcademico" Type="Int32" Nullable="false" />
+    <Property Name="Calificacion" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AnioAcademico">
+    <Key>
+      <PropertyRef Name="AnioAcademicoID" />
+    </Key>
+    <Property Name="AnioAcademicoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Anio" Type="Int32" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Asignatura">
+    <Key>
+      <PropertyRef Name="AsignaturaID" />
+    </Key>
+    <Property Name="AsignaturaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Codigo" Type="Int32" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Profesor">
+    <Key>
+      <PropertyRef Name="ProfesorID" />
+    </Key>
+    <Property Name="ProfesorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Identificacion" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Edad" Type="Int32" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProfesorAsignatura">
+    <Key>
+      <PropertyRef Name="ProfesorAsignaturaID" />
+    </Key>
+    <Property Name="ProfesorAsignaturaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProfesorID" Type="Int32" Nullable="false" />
+    <Property Name="AsignaturaID" Type="Int32" Nullable="false" />
+    <Property Name="AnioAcademicoID" Type="Int32" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Vista_AsignaturasProfesor">
+    <Key>
+      <PropertyRef Name="ProfesorAsignaturaID" />
+      <PropertyRef Name="ProfesorID" />
+      <PropertyRef Name="AsignaturaID" />
+      <PropertyRef Name="AnioAcademicoID" />
+    </Key>
+    <Property Name="ProfesorAsignaturaID" Type="Int32" Nullable="false" />
+    <Property Name="ProfesorID" Type="Int32" Nullable="false" />
+    <Property Name="NombreProfesor" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoProfesor" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IdentificacionProfesor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="EdadProfesor" Type="Int32" />
+    <Property Name="AsignaturaID" Type="Int32" Nullable="false" />
+    <Property Name="NombreAsignatura" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CodigoAsignatura" Type="Int32" />
+    <Property Name="AnioAcademicoID" Type="Int32" Nullable="false" />
+    <Property Name="AnioAcademico" Type="Int32" />
+    <Property Name="Activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Vista_CalificacionAlumno">
+    <Key>
+      <PropertyRef Name="AlumnoAsignaturaID" />
+      <PropertyRef Name="AlumnoID" />
+      <PropertyRef Name="AsignaturaID" />
+      <PropertyRef Name="AnioAcademico" />
+      <PropertyRef Name="Calificacion" />
+      <PropertyRef Name="Aprobo" />
+    </Key>
+    <Property Name="AlumnoAsignaturaID" Type="Int32" Nullable="false" />
+    <Property Name="AlumnoID" Type="Int32" Nullable="false" />
+    <Property Name="NombreAlumno" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoAlumno" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IdentificacionAlumno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="EdadAlumno" Type="Int32" />
+    <Property Name="AsignaturaID" Type="Int32" Nullable="false" />
+    <Property Name="Asignatura" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CodigoAsignatura" Type="Int32" />
+    <Property Name="AnioAcademico" Type="Int32" Nullable="false" />
+    <Property Name="Anio" Type="Int32" />
+    <Property Name="ProfesorID" Type="Int32" />
+    <Property Name="IdentificacionProfesor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="NombreProfesor" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Calificacion" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Aprobo" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="SincoERPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Alumno" EntityType="Self.Alumno" />
+    <EntitySet Name="AlumnoAsignatura" EntityType="Self.AlumnoAsignatura" />
+    <EntitySet Name="AnioAcademico" EntityType="Self.AnioAcademico" />
+    <EntitySet Name="Asignatura" EntityType="Self.Asignatura" />
+    <EntitySet Name="Profesor" EntityType="Self.Profesor" />
+    <EntitySet Name="ProfesorAsignatura" EntityType="Self.ProfesorAsignatura" />
+    <EntitySet Name="Vista_AsignaturasProfesor" EntityType="Self.Vista_AsignaturasProfesor" />
+    <EntitySet Name="Vista_CalificacionAlumno" EntityType="Self.Vista_CalificacionAlumno" />
+  </EntityContainer>
+</Schema>

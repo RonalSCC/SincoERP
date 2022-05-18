@@ -5,8 +5,10 @@
 }
 
 @using School.Client.Clases.Controllers;
+@using School.Client.Clases;
 
-@model ProfesoresOut
+@model RetornoGeneral
+
 <style>
     .ContainerContent {
         background: linear-gradient(90deg, white, white, white, rgba(255,255,255,.7));
@@ -15,7 +17,7 @@
     }
 
     .txtProfesor {
-        text-align:center;
+        text-align: center;
         font-weight: 500;
         font-size: 1.8rem;
         text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
@@ -27,16 +29,16 @@
 
     .theadSinco {
         background-color: var(--colorBase);
-        color:white;
+        color: white;
         font-size: .9rem;
     }
 
-    .theadSinco th{
-        font-weight: 500;
-    }
+        .theadSinco th {
+            font-weight: 500;
+        }
 
     .ContainerButtons {
-        position:absolute;
+        position: absolute;
         right: 10%;
         top: 3%;
     }
@@ -48,20 +50,23 @@
         border: 1px solid rgba(0,0,0,0.2);
         background: var(--colorBase);
         color: white;
-        display:flex;
-        justify-content:center;
-        align-items:center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
         .btnOptions:hover {
             filter: saturate(180%);
         }
-        .btnOptions:hover .IconButtons {
-            color:white;
-        }
-        .IconButtons:hover {
-            color: white;
-        }
+
+            .btnOptions:hover .IconButtons {
+                color: white;
+            }
+
+    .IconButtons:hover {
+        color: white;
+    }
+
     #ContainerImagenProfesor {
         position: relative;
     }
@@ -83,7 +88,7 @@
     }
 
     .TitleModal {
-        text-align:center;
+        text-align: center;
         color: var(--colorBase);
         text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
     }
@@ -105,6 +110,13 @@
         border-radius: 0px;
     }
 
+    #FormNewProfesor select {
+        border: none;
+        font-size: .8rem;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        border-radius: 0px;
+    }
+
     .btnModalSave {
         background: var(--colorBase);
         color: white;
@@ -119,13 +131,13 @@
 
     .btnModalCancel {
         background: rgba(0,0,0,0.2);
-        font-size:.85rem;
-        color:white;
+        font-size: .85rem;
+        color: white;
     }
 
         .btnModalCancel:hover {
             filter: contrast(150%);
-            color:white;
+            color: white;
         }
 
     .TitleSection {
@@ -142,16 +154,17 @@
 
     .btnModal {
         transition: ease .3s all;
-        width: 12%;
+        width: 17%;
     }
 
         .btnModal:hover {
-            width: 15%;
+            width: 20%;
         }
-    .btnModal:hover .IconsButtons {
-        width: initial;
-        opacity: 1;
-    }
+
+            .btnModal:hover .IconsButtons {
+                width: 10%;
+                opacity: 1;
+            }
 
     .IconsButtons {
         padding-right: 2%;
@@ -159,7 +172,34 @@
         opacity: 0;
         transition: ease .3s all;
     }
+
+    .IconCheckOn {
+        color: green;
+        font-size: 1.2rem;
+    }
+
+    .IconCheckOff {
+        color: gray;
+        font-size: 1.2rem;
+    }
+
+    .thTable {
+        text-align: center;
+    }
+
+    .IconEdit {
+        font-size: 1rem;
+        color: var(--colorBase);
+        cursor: pointer;
+    }
 </style>
+<script>
+    function ReloadGridProfesor() {
+        $('#ContainerGrid').load('@Url.Action("GridProfesores", "School")', function () {
+            $('#TableProfesores').DataTable();
+        });
+    }
+</script>
 <div class="col-sm-12 h-100 p-3">
     <div class="ContainerContent d-flex col-sm-12 h-100">
         <div id="ContainerImagenProfesor" class="col-sm-2 h-100">
@@ -176,46 +216,11 @@
             </div>
 
             <div class="col-sm-12 d-flex justify-content-center">
-                <div class="col-sm-10">
-                    <table id="TableProfesores" class="table table-hover table-striped table-bordered">
-                        <thead class="theadSinco">
-                            <tr>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
-                                <th scope="col">Identificacion</th>
-                                <th scope="col">Edad</th>
-                                <th scope="col">Dirección</th>
-                                <th scope="col">Telefono</th>
-                                <th scope="col">Activo</th>
-                            </tr>
-                        </thead>
-                        <tbody class="tbodyProfesor">
-
-                            @if (Model?.ListaProfesores != null && Model?.ListaProfesores.Count > 0)
-                            {
-                                foreach (var prof in Model.ListaProfesores)
-                                {
-                                    <tr>
-                                        <td>@prof.Nombre</td>
-                                        <td>@prof.Apellido</td>
-                                        <td>@prof.Identificacion</td>
-                                        <td>@prof.Edad</td>
-                                        <td>@prof.Direccion</td>
-                                        <td>@prof.Telefono</td>
-                                        <td>@prof.Activo</td>
-                                    </tr>
-                                }
-                            }
-
-                        </tbody>
-                    </table>
+                <div class="col-sm-10" id="ContainerGrid">
+                    @Html.Action("GridProfesores", "School")
                 </div>
             </div>
-
-            
         </div>
-
-
     </div>
 
 
@@ -224,8 +229,8 @@
     <div class="modal fade" id="ModalNewProfesor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
-                <div class="modal-body">
-                    <div class="col-sm-12">
+                <div class="modal-body d-flex justify-content-center">
+                    <div class="col-sm-11">
                         <div class="col-sm-12 mb-3">
                             <h3 class="TitleModal">Nuevo Profesor</h3>
                         </div>
@@ -234,53 +239,23 @@
                             <div class="col-sm-12 mb-2" style="padding-left: 1%;">
                                 <label class="TitleSection">Datos personales</label>
                             </div>
-                            <div class="col-sm-12 ContainerForm mb-4" style="padding: 2% 4%;">
-                                <form id="FormNewProfesor" class="row g-3">
-                                    <div class="col-md-4">
-                                        <label for="inputNombre" class="form-label">Nombre</label>
-                                        <input name="Nombre" type="text" class="form-control w-70" id="inputNombre"  required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="inputApellido" class="form-label">Apellido</label>
-                                        <input name="Apellido" type="text" class="form-control w-70" id="inputApellido" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="inputIdentificacion" class="form-label">Identificación</label>
-                                        <input name="Identificacion" type="number" class="form-control w-50" min="9999999" max="99999999999" id="inputIdentificacion" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="inputDireccion" class="form-label">Direccion</label>
-                                        <input name="Direccion" type="text" class="form-control" id="inputDireccion" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="inputTelefono" class="form-label ">Telefono</label>
-                                        <input name="Telefono" type="text" class="form-control w-60" id="inputTelefono" required>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="inputEdad" class="form-label">Edad</label>
-                                        <input name="Edad" type="tel" class="form-control w-30" id="inputEdad" max="100" required>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="inputEdad" class="form-label">Activo</label>
-                                        <div class="form-check form-switch">
-                                            <input name="Activo" value="true" class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 p-0 d-flex justify-content-end">
-                                        <button class="btn btnModal btnModalSave" type="submit" onclick="SendFormProfesor()">
-                                            <i class="IconsButtons fa-solid fa-floppy-disk"></i>
-                                            Guardar
-                                        </button>
-                                        <button class="btn btnModal btnModalCancel" type="button" data-bs-dismiss="modal">
-                                            <i class="IconsButtons fa-solid fa-ban"></i>
-                                            Cancelar
-                                        </button>
-                                    </div>
-                                </form>
+                            <div id="ContainerForm" class="col-sm-12 ContainerForm mb-4" style="padding: 2% 4%;">
+                                @Html.Action("FormNewProfesor", "School")
                             </div>
-
-                           
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal AsignaturasProfesor-->
+    <div class="modal fade" id="ModalAsignaturasProfesor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-body d-flex justify-content-center">
+                    <div class="col-sm-12" id="ContainerAsignaturas">
                     </div>
                 </div>
             </div>

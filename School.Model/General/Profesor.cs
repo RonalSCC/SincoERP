@@ -45,4 +45,14 @@ namespace School.Model.General
     {
         public List<Profesor> ListProfesores { get; set; }
     }
+
+    public class ConsultarMateriasProfesorIn
+    {
+        public int ProfesorID { get; set; }
+    }
+
+    public class RetornoConsultarMateriasProfesor : RetornoGeneral {
+        public List<Asignatura> AsignaturasDisponibles { get; set; }
+        public List<Vista_AsignaturasProfesor> AsignaturasAsignadas { get; set; }
+    }
 }
